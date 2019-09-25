@@ -16,4 +16,4 @@ Danh sách sinh viên:
 </ul>
 
 <hr>
-Web: http://laravel-cdth17c.herokuapp.com
+Web: http://laravel-cdth17c.herokuapp.com/
