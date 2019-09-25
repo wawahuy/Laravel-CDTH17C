@@ -12,7 +12,7 @@ Danh sách sinh viên:
 <ul>
     <li>Nguyễn Gia Huy</li>
     <li>Lê Công Đức</li>
-    <li>Lưu Hữu Tân/li>
+    <li>Lưu Hữu Tân</li>
 </ul>
 
 <hr>
