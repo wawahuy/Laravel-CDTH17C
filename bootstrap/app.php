@@ -1,19 +1,9 @@
 <?php
-
-/// cai prooject khac cua ong dau
-/// commit lên ông biết chưa,chưa
-/// vd ghi nãy h nè h commit lên nhe
-/// h ông commit lên, vs cái ghi chú gì đó vd như tui éo biết là ghi gì nên tui ghi dấu . thấy hk   ok
-/// lỗi rồi fix cái nhe
-
-/// rồi h commit như sau 
-/// đầu tiên n
-
 /*
 |--------------------------------------------------------------------------
 | Create The Application
 |--------------------------------------------------------------------------
-|
+
 | The first thing we will do is create a new Laravel application instance
 | which serves as the "glue" for all the components of Laravel, and is
 | the IoC container for the system binding all of the various parts.
