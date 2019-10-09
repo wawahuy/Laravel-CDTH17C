@@ -9,6 +9,7 @@ class CreateLuotChoisTable extends Migration
     /**
      * Run the migrations.
      *
+     * [user]
      * @return void
      */
     public function up()
