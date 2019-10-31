@@ -9,8 +9,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sufee Admin - HTML5 Admin Template</title>
-    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <title>Game Manager</title>
+    <meta name="description" content="Game Manager">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="apple-icon.png">
@@ -38,40 +38,27 @@
         <div class="container">
             <div class="login-content">
                 <div class="login-logo">
-                    <a href="index.html">
-                        <img class="align-content" src="images/logo.png" alt="">
-                    </a>
+                    <h1 style="color: white; margin-bottom: 70px;">Game Manager</h1>
                 </div>
                 <div class="login-form">
-                <form action="{{route('xu-ly-dang-nhap')}}" method="POST">
+                <form action="{{route('dang-nhap.xu-ly')}}" method="POST">
                     @csrf
                         <div class="form-group">
                             <label>Tài khoản</label>
-                            <input type="text" class="form-control" placeholder="Tài khoản" name="taikhoan">
+                        <input required type="text" class="form-control" placeholder="Tài khoản" name="tai_khoan" value="{{old('tai_khoan')}}">
                         </div>
                             <div class="form-group">
                                 <label>Mật khẩu</label>
-                                <input type="password" class="form-control" placeholder="Mật khẩu" name="matkhau">
+                                <input required type="password" class="form-control" placeholder="Mật khẩu" name="mat_khau">
                         </div>
                                 <div class="checkbox">
                                     <label>
                                 <input type="checkbox"> Remember Me
                             </label>
-                                    <label class="pull-right">
-                                <a href="#">Forgotten Password?</a>
-                            </label>
+                                    
 
                                 </div>
                                 <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
-                                <div class="social-login-content">
-                                    <div class="social-button">
-                                        <button type="button" class="btn social facebook btn-flat btn-addon mb-3"><i class="ti-facebook"></i>Sign in with facebook</button>
-                                        <button type="button" class="btn social twitter btn-flat btn-addon mt-2"><i class="ti-twitter"></i>Sign in with twitter</button>
-                                    </div>
-                                </div>
-                                <div class="register-link m-t-15 text-center">
-                                    <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
-                                </div>
                     </form>
                 </div>
             </div>

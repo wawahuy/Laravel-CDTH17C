@@ -20,6 +20,9 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{asset('css/skins/_all-skins.min.css')}}">
 
+  <link rel="stylesheet" href="{{asset('css/sweet-alert.css')}}">
+
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -30,6 +33,13 @@
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <style>
+    a.disabled {
+      pointer-events: none;
+      cursor: default;
+    }
+  </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -40,7 +50,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>Game</b>Manager</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -256,7 +266,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{asset('img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">admin</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -264,8 +274,7 @@
                 <img src="{{asset('img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  No detail.
                 </p>
               </li>
               <!-- Menu Body -->
@@ -285,11 +294,8 @@
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                <a href="{{route('dang-xuat')}}" class="btn btn-default btn-flat">Đăng xuất</a>
                 </div>
               </li>
             </ul>
@@ -312,7 +318,7 @@
           <img src="{{asset('img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>admin</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -328,26 +334,8 @@
       </form>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Quản lí câu hỏi</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul>
-        </li>
+      @include('menu')
         
-        <li class="header">LABELS</li>
-        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
-      </ul>
     </section>
     <!-- /.sidebar -->
   </aside>
@@ -361,9 +349,21 @@
       </h1>
     </section>
 
+
     <!-- Main content -->
     <section class="content">
+        
+        <!--- alert --->
+        @if(isset($alert) && $alert != null && $alert['type'] == "error" || $alert['type']=="success")
+        <div class="alert alert-{{ $alert['type'] == 'error' ? "danger" : "success"}} alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-ban"></i> {{ $alert['type'] == 'error' ? "Lỗi" : "Hoàn thành"}}!</h4>
+                {{$alert["message"]}}
+        </div>
+        @endif
+
         @yield('content')
+
     </section>
     <!-- /.content -->
   </div>
@@ -596,6 +596,9 @@
 <!-- DataTables -->
 <script src="{{asset('bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+
+<script src="{{asset('js/sweet-alert.min.js')}}"></script>
+<script src="{{asset('js/alert-delete.js')}}"></script>
 <!-- page script -->
 <script>
     $(function () {
@@ -609,6 +612,12 @@
         'autoWidth'   : false
       })
     })
+
+    @if(isset($alert) && $alert != null && $alert['type'] == "error2" || $alert['type']=="success2")
+    $(document).ready(function (){
+      swal('Thông báo', "{{$alert['message']}}", "{{ $alert['type']=='error2' ? 'error' : 'success'}}");
+    });
+    @endif
   </script>
 </body>
 </html>

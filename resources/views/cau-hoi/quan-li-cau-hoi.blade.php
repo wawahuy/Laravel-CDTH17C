@@ -33,11 +33,11 @@
             <td>{{$cauhoi->phuongan_D}}</td>
             <td>{{$cauhoi->dapan}}</td>
             <td>
-              <a class="btn btn-app">
+              <a class="btn btn-app" href="{{route('cau-hoi.sua', ["id" => $cauhoi->id])}}">
                 <i class="fa fa-edit "></i> Sửa
               </a>
-              <a class="btn btn-app">
-                <i class="fa fa-trash "></i> Xóa
+            <a class="btn btn-app alert-delete disabled" href="{{route('cau-hoi.xoa', ["id" => $cauhoi->id])}}">
+                <i class="fa fa-trash"></i> Xóa
               </a>
             </td>
         </tr>
