@@ -3,8 +3,6 @@
 @section('content-header', 'Quản lí câu hỏi')
 @section('content')
 
-    
-
 <div class="box">
     <!-- /.box-header -->
     <div class="box-body">
@@ -28,7 +26,7 @@
         <tr>
             <td>{{$cauhoi->id}}</td>
             <td>{{$cauhoi->noidung}} </td>
-            <td>{{$cauhoi->Linhvuc->ten_linh_vuc}}</td>
+            <td>{{$cauhoi->LinhVuc->ten_linh_vuc}}</td>
             <td>{{$cauhoi->phuongan_A}}</td>
             <td>{{$cauhoi->phuongan_B}}</td>
             <td>{{$cauhoi->phuongan_C}}</td>
@@ -60,4 +58,7 @@
         </tfoot>
       </table>
     </div>
-    <!-- /.box-body -
+    <!-- /.box-body -->
+  </div>
+@endsection
+  

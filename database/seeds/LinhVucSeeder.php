@@ -14,7 +14,8 @@ class LinhVucSeeder extends Seeder
     {
         //
         LinhVuc::create([
-           'ten_linh_vuc' => 'Toán học' 
+           'ten_linh_vuc' => 'Toán học',
+           'ten_linh_vuc' => 'Văn học'
         ]);
     }
 }

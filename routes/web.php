@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/quan-li-cau-hoi','CauHoiController@index');
+Route::get('/dang-nhap', 'QuanTriVienController@dangnhap');
