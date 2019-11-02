@@ -10,5 +10,12 @@ class GoiCredit extends Model
     //
     use SoftDeletes;
 
-    /// cập nhật tiếp nhe
+    protected $table = 'goi_credits';
+
+    protected $fillable = [
+        'tengoi',
+        'credit',
+        'sotien'
+    ];
+
 }

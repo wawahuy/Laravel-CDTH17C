@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuanTriViensTable extends Migration
+class CreateCauHinhAppsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateQuanTriViensTable extends Migration
      */
     public function up()
     {
-        Schema::create('quan_tri_viens', function (Blueprint $table) {
+        Schema::create('cau_hinh_apps', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tai_khoan');
-            $table->string('mat_khau');
-            $table->string('ho_ten');
-            $table->softDeletes();
+            $table->integer('co_hoi_sai');
+            $table->integer('thoi_gian_tra_loi');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateQuanTriViensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quan_tri_viens');
+        Schema::dropIfExists('cau_hinh_apps');
     }
 }
