@@ -1,11 +1,4 @@
 @php
-///// `__has__` dùng để kiểm tra menu nào đanh mở
-///// vd: http://.../cau-hoi/them
-///// vd: http://.../cau-hoi/sua
-/////                ______
-///// Khi extend layout cần chuyền vào biến "route_yuh" => "route name"
-
-
     $ar_menu = [
         "Quản lý câu hỏi" => [
             "Danh sách" => 'cau-hoi.',
