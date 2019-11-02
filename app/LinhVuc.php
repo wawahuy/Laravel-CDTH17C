@@ -9,7 +9,6 @@ class LinhVuc extends Model
 {
     use SoftDeletes;
     
-    //
     protected $table = 'linh_vucs';
     protected $fillable = ['ten_linh_vuc'];
 }
