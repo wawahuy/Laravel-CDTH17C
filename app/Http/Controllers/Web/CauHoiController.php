@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\CauHoi;
+use App\Components\Notification;
 use App\LinhVuc;
 use Illuminate\Http\Request;
 
 class CauHoiController extends Controller
 {
+    use Notification;
+
     /**
      * Xem danh sách
      *
@@ -17,11 +20,7 @@ class CauHoiController extends Controller
     public function danh_sach(Request $req)
     {
         $dsCauHoi = CauHoi::all();
-
-        return view('cau-hoi.quan-li-cau-hoi',[
-            'dsCauHoi' => $dsCauHoi,
-            'alert' => $this->findAlert($req->get('code'))
-        ]);
+        return view('cau-hoi.quan-li-cau-hoi', compact('dsCauHoi'));
     }
 
 
@@ -31,11 +30,8 @@ class CauHoiController extends Controller
      * @return void
      */
     public function them_moi(Request $req){
-        $linh_vuc = LinhVuc::all();
-        return view('cau-hoi.them-moi', [
-            'linhvuc' => $linh_vuc, 
-            'alert' => $this->findAlert($req->get('code'))  /// cái key value này là tìm có thông báo ko cho layout xữ lý
-            ]);
+        $linhvuc = LinhVuc::all();
+        return view('cau-hoi.them-moi', compact('linhvuc'));
     }
     
 
@@ -47,20 +43,24 @@ class CauHoiController extends Controller
      */
     public function xu_ly_them_moi(Request $request){
         if(!$request->filled(['cauhoi', 'pan_A',  'pan_B',  'pan_C',  'pan_D',  'linhvuc', 'dapan'])){
-            return redirect()->route('cau-hoi.them-moi', ["code" => 1])->withInput();
+            self::error('Không được bỏ trống!');
+            return redirect()->route('cau-hoi.them-moi')->withInput();
         }
 
         if($request->linhvuc == "-1"){
-            return redirect()->route('cau-hoi.them-moi', ["code" => 2])->withInput();
+            self::error('Vui lòng chọn lĩnh vực!');
+            return redirect()->route('cau-hoi.them-moi')->withInput();
         }
 
         if($request->dapan == "-1"){
-            return redirect()->route('cau-hoi.them-moi', ["code" => 3])->withInput();
+            self::error("Vui lòng chọn đáp án đúng!");
+            return redirect()->route('cau-hoi.them-moi')->withInput();
         }
 
         /// Kiêm tra id lĩnh vực
         if(LinhVuc::find($request->linhvuc) == null){
-            return redirect()->route('cau-hoi.them-moi', ["code" => 4])->withInput();
+            self::error('Lĩnh vực lỗi!');
+            return redirect()->route('cau-hoi.them-moi')->withInput();
         }
 
         CauHoi::create([
@@ -73,7 +73,8 @@ class CauHoiController extends Controller
             'dapan' => $request->dapan
         ]);
 
-        return redirect()->route('cau-hoi.them-moi', ["code" => 5 ]);
+        self::success('Thêm thành công');
+        return redirect()->route('cau-hoi.them-moi');
     }
 
     /**
@@ -83,12 +84,14 @@ class CauHoiController extends Controller
         $cauhoi = CauHoi::find($id);
         
         if($cauhoi == null){
-            return redirect()->route('cau-hoi.', ["code" => 7 ]);
+            self::sweet_error('Xóa thất bại');
+            return redirect()->route('cau-hoi.');
         }
 
         $cauhoi->delete();
 
-        return redirect()->route('cau-hoi.', ["code" => 6 ]);
+        self::sweet_success('Xóa thành công');
+        return redirect()->route('cau-hoi.');
     }
 
 
@@ -96,18 +99,15 @@ class CauHoiController extends Controller
      * Trang Sửa
      */
     public function sua(Request $request, $id){
-        $linh_vuc = LinhVuc::all();
+        $linhvuc = LinhVuc::all();
         $cau_hoi = CauHoi::find($id);
 
         if($cau_hoi == null){
-            return redirect()->route('cau-hoi.', ["code" => 9]);
+            self::error('Không tìm thấy câu hỏi');
+            return redirect()->route('cau-hoi.');
         }
 
-        return view('cau-hoi.sua', [
-            'cau_hoi' => $cau_hoi,
-            'linhvuc' => $linh_vuc, 
-            'alert' => $this->findAlert($request->get('code'))  /// cái key value này là tìm có thông báo ko cho layout xữ lý
-            ]);
+        return view('cau-hoi.sua', compact(['cau_hoi', 'linhvuc']));
     }
 
 
@@ -120,27 +120,32 @@ class CauHoiController extends Controller
      */
     public function xu_ly_sua(Request $request, $id){
         if(!$request->filled(['cauhoi', 'pan_A',  'pan_B',  'pan_C',  'pan_D',  'linhvuc', 'dapan'])){
-            return redirect()->route('cau-hoi.sua', ["code" => 1, "id" => $id])->withInput();
+            self::error('Không được bỏ trống!');
+            return redirect()->route('cau-hoi.sua', compact("id"))->withInput();
         }
 
         if($request->linhvuc == "-1"){
-            return redirect()->route('cau-hoi.sua', ["code" => 2, "id" => $id])->withInput();
+            self::error('Vui lòng chọn lĩnh vực!');
+            return redirect()->route('cau-hoi.sua', compact("id"))->withInput();
         }
 
         if($request->dapan == "-1"){
-            return redirect()->route('cau-hoi.sua', ["code" => 3, "id" => $id])->withInput();
+            self::error("Vui lòng chọn đáp án đúng!");
+            return redirect()->route('cau-hoi.sua', compact("id"))->withInput();
         }
 
         /// Kiêm tra id lĩnh vực
         if(LinhVuc::find($request->linhvuc) == null){
-            return redirect()->route('cau-hoi.sua', ["code" => 4, "id" => $id])->withInput();
+            self::error('Lĩnh vực lỗi!');
+            return redirect()->route('cau-hoi.sua', compact("id"))->withInput();
         }
 
         /// Lấy Cau Hoi Model
         $cau_hoi = CauHoi::find($id);
 
         if($cau_hoi == null){
-            return redirect()->route('cau-hoi.', ["code" => 9])->withInput();
+            self::error('Không tìm thấy câu hỏi');
+            return redirect()->route('cau-hoi.')->withInput();
         }
 
         $cau_hoi->noidung = $request->cauhoi;
@@ -152,74 +157,8 @@ class CauHoiController extends Controller
         $cau_hoi->dapan = $request->dapan;
         $cau_hoi->save();
 
-        return redirect()->route('cau-hoi.sua', ["code" => 12, "id" => $id]);
+        self::success('Sửa câu hỏi thành công');
+        return redirect()->route('cau-hoi.sua',compact("id"));
     }
 
-    /**
-     * Thông báo, copy cái này nếu muốn có thông báo nhe
-     * trong lúc truyền ra view thì thêm key: "alert" giá trị nó là cái này
-     * xem demo trên hàm `xu_ly_them_moi`
-     *
-     * @param [type] $code
-     * @return void
-     */
-    public function findAlert($code){
-        $message = null;    /// nội dung
-        $type = null;       /// loại 'success', 'error', 'success2', 'error2'
-        switch($code){
-            case 1:
-                $type = "error";
-                $message = "Không được bỏ trống!";
-            break;
-
-            case 2:
-                $type = "error";
-                $message = "Vui lòng chọn lĩnh vực!";
-            break;
-
-
-            case 3:
-                $type = "error";
-                $message = "Vui lòng chọn đáp án đúng!";
-            break;
-
-            case 4:
-                $type = "error";
-                $message = "Lĩnh vực lỗi!";
-            break;
-
-            case 5:
-                $type = "success";
-                $message = "Thêm thành công";
-            break;
-
-            case 6:
-                $type = "success2";
-                $message = "Xóa thành công";
-            break;
-
-            case 7:
-                $type = "error2";
-                $message = "Xóa thất bại";
-            break;
-
-            case 9:
-                $type = "error";
-                $message = "Không tìm thấy câu hỏi";
-            break;
-
-            case 12:
-                $type = "success";
-                $message = "Sửa câu hỏi thành công";
-            break;
-        }
-
-        if($type == null)
-            return null;
-
-        return [
-            "type" => $type,
-            "message" => $message,
-        ];
-    }
 }

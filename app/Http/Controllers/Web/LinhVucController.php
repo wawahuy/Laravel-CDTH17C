@@ -104,7 +104,7 @@ class LinhVucController extends Controller
     public function xu_ly_sua(Request $request, $id){
         if(!$request->filled(['ten_linh_vuc'])){
             self::error('Không được bỏ trống!');
-            return redirect()->route('linh-vuc.sua', ["id" => $id])->withInput();
+            return redirect()->route('linh-vuc.sua', compact("id"))->withInput();
         }
 
         /// Lấy Linh Vuc Model
@@ -117,8 +117,8 @@ class LinhVucController extends Controller
         $linh_vuc->ten_linh_vuc = $request->ten_linh_vuc;
         $linh_vuc->save();
 
-        self::sweet_success('Sửa lĩnh vực thành công');
-        return redirect()->route('linh-vuc.sua', ["id" => $id]);
+        self::success('Sửa lĩnh vực thành công');
+        return redirect()->route('linh-vuc.sua', compact("id"));
     }
 
 }
