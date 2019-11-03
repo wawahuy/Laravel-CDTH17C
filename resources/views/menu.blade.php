@@ -8,6 +8,16 @@
         "Quản lý lĩnh vực" => [
             "Danh sách" => 'linh-vuc.',
             "Thêm lĩnh vực" => 'linh-vuc.them-moi'
+        ],
+
+        "Quản lý người dùng" => [
+            "Danh sách" => 'nguoi-dung.',
+            "Thêm người dùng" => 'nguoi-dung.them-moi'
+        ],
+
+        "Quản lý gói credit" => [
+            "Danh sách" => 'goi-credit.',
+            "Thêm gói credit" => 'goi-credit.them-moi'
         ]
     ];
 @endphp
@@ -18,7 +28,13 @@
     
     @foreach ($ar_menu as $name => $menu_child)
 
-    <li class="treeview">
+    {{-- Check open menu --}}
+    @php($active = false)            
+    @foreach ($menu_child as $name_child => $routeName)
+    @php($active = $active || Request::routeIs($routeName))            
+    @endforeach
+
+    <li class="treeview {{$active ? 'menu-open active' : ''}}">
         <a href="#">
             <i class="fa fa-edit"></i> <span>{{$name}}</span>
             <span class="pull-right-container">
@@ -27,7 +43,7 @@
         </a>
         <ul class="treeview-menu">
             @foreach ($menu_child as $name_child => $routeName)
-                <li>
+                <li class="{{ Request::routeIs($routeName) ? 'active' : '' }}">
                     <a href="{{route($routeName)}}"><i class="fa fa-circle-o"></i> {{$name_child}}</a>
                 </li>
             @endforeach
