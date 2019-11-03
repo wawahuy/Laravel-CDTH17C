@@ -8,6 +8,16 @@
         "Quản lý lĩnh vực" => [
             "Danh sách" => 'linh-vuc.',
             "Thêm lĩnh vực" => 'linh-vuc.them-moi'
+        ],
+
+        "Quản lý người dùng" => [
+            "Danh sách" => 'nguoi-dung.',
+            "Thêm người dùng" => 'nguoi-dung.them-moi'
+        ],
+
+        "Quản lý gói credit" => [
+            "Danh sách" => 'goi-credit.',
+            "Thêm gói credit" => 'goi-credit.them-moi'
         ]
     ];
 @endphp
