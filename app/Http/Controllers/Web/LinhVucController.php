@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Components\Notification;
 use App\Http\Controllers\Controller;
-use App\CauHoi;
 use App\LinhVuc;
 use Illuminate\Http\Request;
 
 class LinhVucController extends Controller
 {
+    use Notification;
+
     /**
      * Xem danh sách
      *
@@ -17,11 +19,7 @@ class LinhVucController extends Controller
     public function danh_sach(Request $req)
     {
         $dsLinhVuc = LinhVuc::all();
-
-        return view('linh-vuc.quan-li',[
-            'dsLinhVuc' => $dsLinhVuc,
-            'alert' => $this->findAlert($req->get('code'))
-        ]);
+        return view('linh-vuc.quan-li', compact('dsLinhVuc'));
     }
 
 
@@ -31,9 +29,7 @@ class LinhVucController extends Controller
      * @return void
      */
     public function them_moi(Request $req){
-       return view('linh-vuc.them-moi', [
-            'alert' => $this->findAlert($req->get('code'))  /// cái key value này là tìm có thông báo ko cho layout xữ lý
-            ]);
+       return view('linh-vuc.them-moi');
     }
     
 
@@ -44,21 +40,25 @@ class LinhVucController extends Controller
      * @return void
      */
     public function xu_ly_them_moi(Request $request){
-        if(!$request->filled(['ten_linh_vuc'])){
-            return redirect()->route('linh-vuc.them-moi', ["code" => 1])->withInput();
-        }
 
+        /// Kiểm tra xem input ten_linh_vuc có và có khác rỗng không
+        if(!$request->filled(['ten_linh_vuc'])){
+            self::error('Không được bỏ trống!');
+            return redirect()->route('linh-vuc.them-moi')->withInput();
+        }
 
         /// Kiêm tra id lĩnh vực
         if(LinhVuc::where('ten_linh_vuc', $request->ten_linh_vuc)->first() != null ){
-            return redirect()->route('linh-vuc.them-moi', ["code" => 2])->withInput();
+            self::error('Lĩnh vực này đã tồn tại!');
+            return redirect()->route('linh-vuc.them-moi')->withInput();
         }
 
         LinhVuc::create([
             'ten_linh_vuc' => $request->ten_linh_vuc,
         ]);
 
-        return redirect()->route('linh-vuc.them-moi', ["code" => 3 ]);
+        self::success('Thêm thành công!');
+        return redirect()->route('linh-vuc.them-moi');
     }
 
     /**
@@ -68,12 +68,14 @@ class LinhVucController extends Controller
         $linhvuc = LinhVuc::find($id);
         
         if($linhvuc == null){
-            return redirect()->route('linh-vuc.', ["code" => 4 ]);
+            self::sweet_error('Không tìm thấy!');
+            return redirect()->route('linh-vuc.');
         }
 
         $linhvuc->delete();
 
-        return redirect()->route('linh-vuc.', ["code" => 5 ]);
+        self::sweet_success('Xóa thành công');
+        return redirect()->route('linh-vuc.');
     }
 
 
@@ -84,13 +86,11 @@ class LinhVucController extends Controller
         $linh_vuc = LinhVuc::find($id);
 
         if($linh_vuc == null){
-            return redirect()->route('linh-vuc.', ["code" => 4]);
+            self::sweet_error('Không tìm thấy!');
+            return redirect()->route('linh-vuc.');
         }
 
-        return view('linh-vuc.sua', [
-            'linh_vuc' => $linh_vuc,
-            'alert' => $this->findAlert($request->get('code'))  /// cái key value này là tìm có thông báo ko cho layout xữ lý
-            ]);
+        return view('linh-vuc.sua', compact('linh_vuc'));
     }
 
 
@@ -103,70 +103,22 @@ class LinhVucController extends Controller
      */
     public function xu_ly_sua(Request $request, $id){
         if(!$request->filled(['ten_linh_vuc'])){
-            return redirect()->route('linh-vuc.sua', ["code" => 1, "id" => $id])->withInput();
+            self::error('Không được bỏ trống!');
+            return redirect()->route('linh-vuc.sua', compact("id"))->withInput();
         }
 
         /// Lấy Linh Vuc Model
         $linh_vuc = LinhVuc::find($id);
         if($linh_vuc == null){
-            return redirect()->route('linh-vuc.', ["code" => 4])->withInput();
+            self::sweet_error('Không tìm thấy!');
+            return redirect()->route('linh-vuc.')->withInput();
         }
 
         $linh_vuc->ten_linh_vuc = $request->ten_linh_vuc;
         $linh_vuc->save();
 
-        return redirect()->route('linh-vuc.sua', ["code" => 7, "id" => $id]);
+        self::success('Sửa lĩnh vực thành công');
+        return redirect()->route('linh-vuc.sua', compact("id"));
     }
 
-    /**
-     * Thông báo, copy cái này nếu muốn có thông báo nhe
-     * trong lúc truyền ra view thì thêm key: "alert" giá trị nó là cái này
-     * xem demo trên hàm `xu_ly_them_moi`
-     *
-     * @param [type] $code
-     * @return void
-     */
-    public function findAlert($code){
-        $message = null;    /// nội dung
-        $type = null;       /// loại 'success', 'error', 'success2', 'error2'
-        switch($code){
-            case 1:
-                $type = "error";
-                $message = "Không được bỏ trống!";
-            break;
-
-            case 2:
-                $type = "error";
-                $message = "Lĩnh vực này đã tồn tại";
-            break;
-
-            case 3:
-                $type = "success";
-                $message = "Thêm thành công";
-            break;
-
-            case 4:
-                $type = "error2";
-                $message = "Không tìm thấy";
-            break;
-
-            case 5:
-                $type = "success2";
-                $message = "Xóa thành công";
-            break;
-            
-            case 7:
-                $type = "success";
-                $message = "Sửa lĩnh vực thành công";
-            break;
-        }
-
-        if($type == null)
-            return null;
-
-        return [
-            "type" => $type,
-            "message" => $message,
-        ];
-    }
 }
