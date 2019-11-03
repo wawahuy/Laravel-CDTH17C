@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\CauHoi;
 use App\Components\Notification;
+use App\Http\Requests\FormCauHoiRequest;
 use App\LinhVuc;
 use Illuminate\Http\Request;
 
@@ -41,21 +42,7 @@ class CauHoiController extends Controller
      * @param Request $request
      * @return void
      */
-    public function xu_ly_them_moi(Request $request){
-        if(!$request->filled(['cauhoi', 'pan_A',  'pan_B',  'pan_C',  'pan_D',  'linhvuc', 'dapan'])){
-            self::error('Không được bỏ trống!');
-            return redirect()->route('cau-hoi.them-moi')->withInput();
-        }
-
-        if($request->linhvuc == "-1"){
-            self::error('Vui lòng chọn lĩnh vực!');
-            return redirect()->route('cau-hoi.them-moi')->withInput();
-        }
-
-        if($request->dapan == "-1"){
-            self::error("Vui lòng chọn đáp án đúng!");
-            return redirect()->route('cau-hoi.them-moi')->withInput();
-        }
+    public function xu_ly_them_moi(FormCauHoiRequest $request){
 
         /// Kiêm tra id lĩnh vực
         if(LinhVuc::find($request->linhvuc) == null){
@@ -118,22 +105,7 @@ class CauHoiController extends Controller
      * @param [type] $id
      * @return void
      */
-    public function xu_ly_sua(Request $request, $id){
-        if(!$request->filled(['cauhoi', 'pan_A',  'pan_B',  'pan_C',  'pan_D',  'linhvuc', 'dapan'])){
-            self::error('Không được bỏ trống!');
-            return redirect()->route('cau-hoi.sua', compact("id"))->withInput();
-        }
-
-        if($request->linhvuc == "-1"){
-            self::error('Vui lòng chọn lĩnh vực!');
-            return redirect()->route('cau-hoi.sua', compact("id"))->withInput();
-        }
-
-        if($request->dapan == "-1"){
-            self::error("Vui lòng chọn đáp án đúng!");
-            return redirect()->route('cau-hoi.sua', compact("id"))->withInput();
-        }
-
+    public function xu_ly_sua(FormCauHoiRequest $request, $id){
         /// Kiêm tra id lĩnh vực
         if(LinhVuc::find($request->linhvuc) == null){
             self::error('Lĩnh vực lỗi!');
