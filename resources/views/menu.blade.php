@@ -28,7 +28,13 @@
     
     @foreach ($ar_menu as $name => $menu_child)
 
-    <li class="treeview">
+    {{-- Check open menu --}}
+    @php($active = false)            
+    @foreach ($menu_child as $name_child => $routeName)
+    @php($active = $active || Request::routeIs($routeName))            
+    @endforeach
+
+    <li class="treeview {{$active ? 'menu-open active' : ''}}">
         <a href="#">
             <i class="fa fa-edit"></i> <span>{{$name}}</span>
             <span class="pull-right-container">
@@ -37,7 +43,7 @@
         </a>
         <ul class="treeview-menu">
             @foreach ($menu_child as $name_child => $routeName)
-                <li>
+                <li class="{{ Request::routeIs($routeName) ? 'active' : '' }}">
                     <a href="{{route($routeName)}}"><i class="fa fa-circle-o"></i> {{$name_child}}</a>
                 </li>
             @endforeach
