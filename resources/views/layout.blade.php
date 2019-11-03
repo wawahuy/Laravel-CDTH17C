@@ -40,8 +40,11 @@
       cursor: default;
     }
   </style>
+
+  <!-- jQuery 3 -->
+  <script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini fixed">
 <div class="wrapper">
 
   <header class="main-header">
@@ -352,18 +355,8 @@
 
     <!-- Main content -->
     <section class="content">
-        
-        <!--- alert --->
-        @if(isset($alert) && $alert != null && $alert['type'] == "error" || $alert['type']=="success")
-        <div class="alert alert-{{ $alert['type'] == 'error' ? "danger" : "success"}} alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-ban"></i> {{ $alert['type'] == 'error' ? "Lỗi" : "Hoàn thành"}}!</h4>
-                {{$alert["message"]}}
-        </div>
-        @endif
-
+        @include('notification')
         @yield('content')
-
     </section>
     <!-- /.content -->
   </div>
@@ -572,8 +565,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
+
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- FastClick -->
@@ -613,11 +605,6 @@
       })
     })
 
-    @if(isset($alert) && $alert != null && $alert['type'] == "error2" || $alert['type']=="success2")
-    $(document).ready(function (){
-      swal('Thông báo', "{{$alert['message']}}", "{{ $alert['type']=='error2' ? 'error' : 'success'}}");
-    });
-    @endif
   </script>
 </body>
 </html>

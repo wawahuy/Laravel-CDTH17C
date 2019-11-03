@@ -6,13 +6,13 @@ $('.alert-delete').click(function (e){
     e.preventDefault();
 
     swal({
-		title: "Are you sure?",
-		text: "You will not be able to recover this imaginary file!",
+		title: "Bạn có muốn?",
+		text: "Xóa dòng dữ liệu này!",
 		type: "warning",
 		showCancelButton: true,
 		confirmButtonColor: '#DD6B55',
-		confirmButtonText: 'Yes, delete it!',
-		cancelButtonText: "No, cancel plx!",
+		confirmButtonText: 'Có, xóa nó!',
+		cancelButtonText: "Không!",
 		closeOnConfirm: false,
 		closeOnCancel: true
 	},
