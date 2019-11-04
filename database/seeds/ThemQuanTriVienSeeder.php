@@ -16,7 +16,8 @@ class ThemQuanTriVienSeeder extends Seeder
         //
         QuanTriVien::create([
             'tai_khoan'=>'admin',
-            'mat_khau'=>Hash::make('admin')
+            'mat_khau'=>Hash::make('admin'),
+            'ho_ten'=>'lcd'
             ]);
     }
 }

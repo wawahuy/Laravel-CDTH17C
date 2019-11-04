@@ -29,8 +29,9 @@ class LinhVucController extends Controller
      *
      * @return void
      */
-    public function them_moi(Request $req){
-       return view('linh-vuc.them-moi');
+    public function them_moi()
+    {
+           return view('linh-vuc.them-moi');
     }
     
 
