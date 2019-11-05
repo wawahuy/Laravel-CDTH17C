@@ -22,6 +22,6 @@ class CauHoi extends Model
     ];
 
     public function LinhVuc(){
-        return $this->belongsTo('App\CauHoi', 'linh_vuc_id', 'id')->withTrashed();
+        return $this->belongsTo(LinhVuc::class, 'linh_vuc_id', 'id')->withTrashed();
     }
 }
