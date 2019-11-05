@@ -22,6 +22,10 @@
           <label>Tài khoản</label>
           <input type="text" class="form-control" placeholder="" name="tai_khoan" value="{{old('tai_khoan') ?? $quan_tri_vien->tai_khoan}}" readonly>
       </div>
+      <div class="form-group">
+        <label>Mật khẩu</label>
+        <input type="text" class="form-control" placeholder="" name="mat_khau" value="">
+    </div>
 
       </div>
       <!-- /.box-body -->

@@ -107,6 +107,7 @@ class QuanTriVienController extends Controller
 
         $quan_tri_vien->ho_ten = $request->ho_ten;
         $quan_tri_vien->tai_khoan = $request->tai_khoan;
+        $quan_tri_vien->mat_khau = Hash::make($request->mat_khau);
         $quan_tri_vien->save();
 
         self::success('Sửa thành công');

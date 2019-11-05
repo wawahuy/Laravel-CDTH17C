@@ -25,7 +25,8 @@ class FormQuanTriVienRequest extends FormRequest
     {
         return [
             'ho_ten' => 'required|max:100',
-            'tai_khoan' => 'required|max:100'
+            'tai_khoan' => 'required|max:100',
+            'mat_khau' => 'required|max:100'
         ];
     }
 }
