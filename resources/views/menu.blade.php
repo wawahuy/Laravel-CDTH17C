@@ -23,6 +23,9 @@
         "Quản lý quản trị viên" => [
             "Danh sách" => 'quan-tri-vien.',
             "Thêm quản trị viên" => 'quan-tri-vien.them-moi'
+        ],
+        "Quản lý lượt chơi" => [
+            "Danh sách" => 'luot-choi.'
         ]
 
     ];

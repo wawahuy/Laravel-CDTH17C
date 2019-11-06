@@ -111,6 +111,15 @@ Route::namespace('Web')->group(function (){
             }); 
         });
 
+        /** Quản lý lượt chơi
+         * 
+         */
+        Route::prefix('luot-choi')->group(function (){
+            Route::name('luot-choi.')->group(function (){
+                Route::get('/','LuotChoiController@danh_sach');
+            }); 
+        });
+
     });
 
 });
