@@ -97,6 +97,20 @@ Route::namespace('Web')->group(function (){
             }); 
         });
 
+        /** Quản lý gói quản trị viên
+         * 
+         */
+        Route::prefix('quan-tri-vien')->group(function (){
+            Route::name('quan-tri-vien.')->group(function (){
+                Route::get('/','QuanTriVienController@danh_sach');
+                Route::get('/them','QuanTriVienController@them_moi')->name('them-moi');
+                Route::post('/them','QuanTriVienController@xu_ly_them_moi')->name('xu-ly-them-moi');
+                Route::get('/xoa/{id}','QuanTriVienController@xoa')->name('xoa');
+                Route::get('/sua/{id}','QuanTriVienController@sua')->name('sua');
+                Route::post('/sua/{id}','QuanTriVienController@xu_ly_sua')->name('xu-ly-sua');
+            }); 
+        });
+
     });
 
 });

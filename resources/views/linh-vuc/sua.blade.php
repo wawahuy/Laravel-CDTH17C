@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Thêm lĩnh vực')
+@section('title', 'Sửa lĩnh vực')
 @section('content-header', 'Quản lí lĩnh vực')
 @section('content')
 <div class="box box-primary">
