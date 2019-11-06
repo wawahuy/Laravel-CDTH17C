@@ -21,8 +21,8 @@ class CauHoi extends Model
         'dapan'
     ];
 
-    public function LinhVuc()
-    {
-        return $this->belongsTo('App\CauHoi', 'linh_vuc_id', 'id')->withTrashed();
+
+    public function LinhVuc(){
+        return $this->belongsTo(LinhVuc::class, 'linh_vuc_id', 'id')->withTrashed();
     }
 }
