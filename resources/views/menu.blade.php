@@ -37,7 +37,7 @@
     {{-- Check open menu --}}
     @php($active = false)            
     @foreach ($menu_child as $name_child => $routeName)
-    @php($active = $active || Request::routeIs($routeName))            
+    @php($active = $active || Request::routeIs($routeName) || strpos(Request::route()->getName(), $routeName) === 0)            
     @endforeach
 
     <li class="treeview {{$active ? 'menu-open active' : ''}}">

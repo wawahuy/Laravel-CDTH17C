@@ -11,6 +11,7 @@
             <tr>
                 <th>ID</th>
                 <th>Tên lĩnh vực</th>
+                <th>Số câu hỏi</th>
                 <th></th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
         <tr>
             <td>{{$linh_vuc->id}}</td>
             <td>{{$linh_vuc->ten_linh_vuc}} </td>
+            <td>{{$linh_vuc->soLuongCauHoi}}</td>
             <td class="pull-right">
               <a class="btn btn-app" href="{{route('linh-vuc.sua', ["id" => $linh_vuc->id])}}">
                 <i class="fa fa-edit "></i> Sửa
@@ -35,6 +37,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Tên lĩnh vực</th>
+                    <th>Số câu hỏi</th>
                     <th></th>
                 </tr> 
         </tfoot>

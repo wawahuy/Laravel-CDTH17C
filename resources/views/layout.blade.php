@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="{{asset('css/skins/_all-skins.min.css')}}">
 
   <link rel="stylesheet" href="{{asset('css/sweet-alert.css')}}">
+  <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}">
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -43,6 +44,7 @@
 
   <!-- jQuery 3 -->
   <script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
+  
 </head>
 <body class="hold-transition skin-blue sidebar-mini fixed">
 <div class="wrapper">
@@ -590,7 +592,9 @@
 <script src="{{asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 
 <script src="{{asset('js/sweet-alert.min.js')}}"></script>
+<script src="{{asset('js/toastr.min.js')}}"></script>
 <script src="{{asset('js/alert-delete.js')}}"></script>
+
 <!-- page script -->
 <script>
     $(function () {

@@ -43,16 +43,21 @@
         
         <div class="form-group">
                 <label>Lĩnh vực:</label>
-                <select class="form-control" name="linhvuc">
-                    <option value="-1">---Chọn---</option>
-                    @foreach ($linhvuc as $item)
-                        @if($item->id == old('linhvuc'))
-                            <option value="{{ $item->id }}" selected>{{ $item->ten_linh_vuc }}</option>
-                        @else
-                            <option value="{{ $item->id }}">{{ $item->ten_linh_vuc }}</option>
-                        @endif
-                    @endforeach
-                </select>
+                <div class="input-group">
+                  <select class="form-control" name="linhvuc">
+                      <option value="-1">---Chọn---</option>
+                      @foreach ($linhvuc as $item)
+                          @if($item->id == old('linhvuc'))
+                              <option value="{{ $item->id }}" selected>{{ $item->ten_linh_vuc }}</option>
+                          @else
+                              <option value="{{ $item->id }}">{{ $item->ten_linh_vuc }}</option>
+                          @endif
+                      @endforeach
+                  </select>
+                  <div class="input-group-addon" data-href="{{route('linh-vuc.them-moi')}}" data-alert="Đến trang thêm lĩnh vực, toàn bộ dữ liệu đang nhập sẽ bị mất?">
+                    <i class="fa fa fa-edit"></i>
+                  </div>
+                </div>
             </div>
 
         <div class="form-group">
