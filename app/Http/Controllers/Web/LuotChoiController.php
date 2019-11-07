@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Web;
-
-use App\Components\Notification;
 use App\Http\Controllers\Controller;
 use App\LuotChoi;
 

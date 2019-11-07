@@ -1,6 +1,6 @@
 @extends('layout')
-@section('title', 'Quản lí lĩnh vực')
-@section('content-header', 'Quản lí lĩnh vực')
+@section('title', 'Quản lí lượt chơi')
+@section('content-header', 'Quản lí lượt chơi')
 @section('content')
 
 <div class="box">

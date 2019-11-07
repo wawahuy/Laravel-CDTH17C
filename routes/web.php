@@ -120,6 +120,14 @@ Route::namespace('Web')->group(function (){
             }); 
         });
 
+        /** Quản lý chi tiết lượt chơi
+         * 
+         */
+        Route::prefix('chi-tiet-luot-choi')->group(function (){
+            Route::name('chi-tiet-luot-choi.')->group(function (){
+                Route::get('/','ChiTietLuotChoiController@danh_sach');
+            }); 
+        });
     });
 
 });
