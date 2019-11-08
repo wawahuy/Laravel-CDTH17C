@@ -11,23 +11,28 @@
 
     <!-- /.box-header -->
     <!-- form start -->
-    <form role="form" action="{{route('linh-vuc.xu-ly-them-moi')}}" method="POST">
+    <form role="form" action="{{route('nguoi-choi.xu-ly-them-moi')}}" method="POST">
     @csrf
       <div class="box-body">
 
         <div class="form-group">
-            <label>Tên lĩnh vực</label>
-            <input type="text" class="form-control" placeholder="tên lĩnh vực" name="ten_linh_vuc" value="{{old('ten_linh_vuc')}}">
+            <label>Tên đăng nhập</label>
+            <input type="text" class="form-control" placeholder="" name="ten_dang_nhap" value="{{old('ten_dang_nhap')}}">
           </div>
 
         <div class="form-group">
-            <label>Tên lĩnh vực</label>
-            <input type="text" class="form-control" placeholder="tên lĩnh vực" name="ten_linh_vuc" value="{{old('ten_linh_vuc')}}">
+            <label>Mật khẩu</label>
+            <div class="input-group">
+              <input id="ps" type="password" class="form-control" placeholder="tên lĩnh vực" name="matkhau" value="{{old('matkhau')}}">
+              <div class="input-group-addon" data-password="#ps">
+                <i class="fa fa-eye"></i>
+              </div>
+            </div>
           </div>
 
         <div class="form-group">
-            <label>Tên lĩnh vực</label>
-            <input type="text" class="form-control" placeholder="tên lĩnh vực" name="ten_linh_vuc" value="{{old('ten_linh_vuc')}}">
+            <label>Email</label>
+            <input type="email" class="form-control" placeholder="tên lĩnh vực" name="email" value="{{old('email')}}">
           </div>
 
       </div>

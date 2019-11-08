@@ -79,6 +79,8 @@ Route::namespace('Web')->group(function (){
                 Route::get('/xoa/{id}','NguoiChoiController@xoa')->name('xoa');
                 Route::get('/sua/{id}','NguoiChoiController@sua')->name('sua');
                 Route::post('/sua/{id}','NguoiChoiController@xu_ly_sua')->name('xu-ly-sua');
+                Route::get('/avatar/{id}','NguoiChoiController@them_avatar')->name('them-avatar');
+                Route::post('/avatar/{id}','NguoiChoiController@xu_ly_them_avatar')->name('xu-ly-them-avatar');
             }); 
         });
 

@@ -1,23 +1,46 @@
 @extends('layout')
-@section('title', 'Thêm lĩnh vực')
-@section('content-header', 'Quản lí lĩnh vực')
+@section('title', 'Sửa người chơi')
+@section('content-header', 'Quản lý người chơi')
 @section('content')
 <div class="box box-primary">
 
 
     <div class="box-header with-border">
-      <h3 class="box-title">Sửa lĩnh vực - ID {{$linh_vuc->id}}</h3>
+      <h3 class="box-title">Sửa người chơi - ID {{$nguoi_choi->id}}</h3>
     </div>
 
     <!-- /.box-header -->
     <!-- form start -->
-    <form role="form" action="{{route('linh-vuc.xu-ly-sua', ["id" => $linh_vuc->id])}}" method="POST">
+    <form role="form" action="{{route('nguoi-choi.xu-ly-sua', ["id" => $nguoi_choi->id])}}" method="POST">
     @csrf
       <div class="box-body">
-        <div class="form-group">
-            <label>Tên lĩnh vực</label>
-            <input type="text" class="form-control" placeholder="A" name="ten_linh_vuc" value="{{old('ten_linh_vuc') ?? $linh_vuc->ten_linh_vuc}}">
-          </div>
+        
+          <div class="form-group text-center">
+              <img src="{{asset($nguoi_choi->avatar)}}" />
+              <button class="btn" data-href="{{route('nguoi-choi.them-avatar',  $nguoi_choi->id)}}" data-alert="Mở trang sửa avatar, toàn bộ dữ liệu đang nhập sẽ bị mất?">
+                  <i class="fa fa fa-edit"></i>
+              </button>
+            </div>
+
+          <div class="form-group">
+              <label>Tên đăng nhập</label>
+              <input type="text" readonly class="form-control" placeholder="" name="ten_dang_nhap" value="{{old('ten_dang_nhap') ?? $nguoi_choi->tendangnhap}}">
+            </div>
+  
+          <div class="form-group">
+              <label>Mật khẩu</label>
+              <div class="input-group">
+                <input id="ps" type="password" class="form-control" placeholder="tên lĩnh vực" name="matkhau" value="{{old('matkhau')}}">
+                <div class="input-group-addon" data-password="#ps">
+                  <i class="fa fa-eye"></i>
+                </div>
+              </div>
+            </div>
+  
+          <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-control" placeholder="tên lĩnh vực" name="email" value="{{old('email') ?? $nguoi_choi->email}}" >
+            </div>
 
       </div>
       <!-- /.box-body -->

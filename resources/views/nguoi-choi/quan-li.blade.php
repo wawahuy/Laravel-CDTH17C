@@ -23,7 +23,9 @@
 @foreach ($dsNguoiChoi as $nguoi_choi)
         <tr>
             <td>{{$nguoi_choi->id}}</td>
-            <td>{{$nguoi_choi->avatar}} </td>
+            <td>
+              <img style="width: 70px; height: 70px;" src="{{asset($nguoi_choi->avatar)}}" title="{{$nguoi_choi->tendangnhap}}" /> 
+            </td>
             <td>{{$nguoi_choi->tendangnhap}} </td>
             <td>{{$nguoi_choi->email}}</td>
             <td>{{$nguoi_choi->diemcaonhat}}</td>

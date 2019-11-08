@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Web;
 
 use App\Components\Notification;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FormAvatarNguoiChoiRequest;
 use App\Http\Requests\FormLinhVucRequest;
+use App\Http\Requests\FormSuaNguoiChoiRequest;
+use App\Http\Requests\FormTTNguoiChoiRequest;
 use App\LinhVuc;
 use App\NguoiChoi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class NguoiChoiController extends Controller
 {
@@ -31,7 +35,7 @@ class NguoiChoiController extends Controller
      * @return void
      */
     public function them_moi(Request $req){
-       return view('linh-vuc.them-moi');
+       return view('nguoi-choi.them-moi');
     }
     
 
@@ -41,36 +45,99 @@ class NguoiChoiController extends Controller
      * @param Request $request
      * @return void
      */
-    public function xu_ly_them_moi(FormLinhVucRequest $request){
-        /// Kiêm tra id lĩnh vực
-        if(LinhVuc::where('ten_linh_vuc', $request->ten_linh_vuc)->first() != null ){
-            self::error('Lĩnh vực này đã tồn tại!');
-            return redirect()->route('linh-vuc.them-moi')->withInput();
-        }
-
-        LinhVuc::create([
-            'ten_linh_vuc' => $request->ten_linh_vuc,
+    public function xu_ly_them_moi(FormTTNguoiChoiRequest $request){
+        NguoiChoi::create([
+            'tendangnhap' => $request->ten_dang_nhap,
+            'matkhau' => $request->matkhau,
+            'email' => $request->email,
+            'avatar' => '',
+            'diemcaonhat' => 0,
+            'credit' => 0
         ]);
 
         self::success('Thêm thành công!');
-        return redirect()->route('linh-vuc.them-moi');
+        return redirect()->route('nguoi-choi.them-moi');
     }
 
     /**
      * Xóa
      */
     public function xoa(Request $req, $id){
-        $linhvuc = LinhVuc::find($id);
+        $nguoiChoi = NguoiChoi::find($id);
         
-        if($linhvuc == null){
+        if($nguoiChoi == null){
             self::sweet_error('Không tìm thấy!');
-            return redirect()->route('linh-vuc.');
+            return redirect()->route('nguoi-choi.');
         }
 
-        $linhvuc->delete();
+        $nguoiChoi->delete();
 
         self::sweet_success('Xóa thành công');
-        return redirect()->route('linh-vuc.');
+        return redirect()->route('nguoi-choi.');
+    }
+
+
+    /**
+     * Thêm avatar
+     */
+    public function them_avatar(Request $req, $id){
+        $nguoi_choi = NguoiChoi::find($id);
+
+        if($nguoi_choi == null){
+            self::sweet_error('Không tìm thấy!');
+            return redirect()->route('nguoi-choi.');
+        }
+
+        return view('nguoi-choi.avatar', compact('nguoi_choi'));
+    }
+
+
+    /**
+     * Xữ lý thêm avatar
+     */
+    public function xu_ly_them_avatar(Request $req, $id){
+
+        $nguoi_choi = NguoiChoi::find($id);
+        if($nguoi_choi == null){
+            return response()->json([
+                "code" => 400,
+                "message" => "Không tìm thấy người chơi này!"
+            ]);   
+        }
+
+        $validator = Validator::make($req->all(), [
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($validator->failed()) {
+			return response()->json([
+                "code" => 400,
+                "message" => "Lỗi tải lên avatar!"
+            ]);
+        }
+
+        ///// Chưa dùng laravel
+        $data = $req->image;
+        list($type, $data) = explode(';', $data);
+        list(, $data)      = explode(',', $data);
+        $data = base64_decode($data);
+        $image_name= time().'.png';
+        $uri = "/avatars/" . $image_name;
+        $path = public_path() . $uri;
+        file_put_contents($path, $data);
+
+        ///// Xóa avatar cũ
+        if($nguoi_choi->avatar != null && $nguoi_choi->avatar != ''){
+            @unlink(public_path().$nguoi_choi->avatar);
+        }
+
+        $nguoi_choi->avatar = $uri;
+        $nguoi_choi->save();
+
+        return response()->json([
+            "code" => 200,
+            "message" => 'Cập nhật avatar thành công!'
+        ]);
     }
 
 
@@ -78,14 +145,14 @@ class NguoiChoiController extends Controller
      * Trang Sửa
      */
     public function sua(Request $request, $id){
-        $linh_vuc = LinhVuc::find($id);
+        $nguoi_choi = NguoiChoi::find($id);
 
-        if($linh_vuc == null){
+        if($nguoi_choi == null){
             self::sweet_error('Không tìm thấy!');
-            return redirect()->route('linh-vuc.');
+            return redirect()->route('nguoi-choi.');
         }
 
-        return view('linh-vuc.sua', compact('linh_vuc'));
+        return view('nguoi-choi.sua', compact('nguoi_choi'));
     }
 
 
@@ -96,19 +163,20 @@ class NguoiChoiController extends Controller
      * @param [type] $id
      * @return void
      */
-    public function xu_ly_sua(FormLinhVucRequest $request, $id){
+    public function xu_ly_sua(FormSuaNguoiChoiRequest $request, $id){
         /// Lấy Linh Vuc Model
-        $linh_vuc = LinhVuc::find($id);
-        if($linh_vuc == null){
+        $nguoi_choi = NguoiChoi::find($id);
+        if($nguoi_choi == null){
             self::sweet_error('Không tìm thấy!');
-            return redirect()->route('linh-vuc.')->withInput();
+            return redirect()->route('nguoi-choi.');
         }
 
-        $linh_vuc->ten_linh_vuc = $request->ten_linh_vuc;
-        $linh_vuc->save();
+        $nguoi_choi->matkhau = $request->matkhau;
+        $nguoi_choi->email = $request->email;
+        $nguoi_choi->save();
 
-        self::success('Sửa lĩnh vực thành công');
-        return redirect()->route('linh-vuc.sua', compact("id"));
+        self::success('Sửa người chơi thành công');
+        return redirect()->route('nguoi-choi.sua', compact("id"));
     }
 
 }
