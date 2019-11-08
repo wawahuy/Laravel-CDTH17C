@@ -11,8 +11,8 @@
         ],
 
         "Quản lý người dùng" => [
-            "Danh sách" => 'nguoi-dung.',
-            "Thêm người dùng" => 'nguoi-dung.them-moi'
+            "Danh sách" => 'nguoi-choi.',
+            "Thêm người dùng" => 'nguoi-choi.them-moi'
         ],
 
         "Quản lý gói credit" => [
