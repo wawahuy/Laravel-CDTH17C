@@ -18,7 +18,13 @@
         "Quản lý gói credit" => [
             "Danh sách" => 'goi-credit.',
             "Thêm gói credit" => 'goi-credit.them-moi'
+        ],
+
+        "Quản lý quản trị viên" => [
+            "Danh sách" => 'quan-tri-vien.',
+            "Thêm quản trị viên" => 'quan-tri-vien.them-moi'
         ]
+
     ];
 @endphp
 
