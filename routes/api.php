@@ -13,6 +13,54 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+
+Route::namespace("Api")->group(function (){
+
+    ///Route::post("auth", "");
+
+    ///Phần xác thực qua token sẽ được xây dựng sao
+    ///Middleware authencation
+    ///....Update.....
+
+
+        /** Quản lý lĩnh vực
+         * 
+         */
+        Route::prefix('linh-vuc')->group(function (){
+            Route::name('linh-vuc.')->group(function (){
+                Route::get('/','LinhVucController@index');
+            }); 
+        });
+
+
+        /** Quản lý goi credit
+         * 
+         */
+        Route::prefix('goi-credit')->group(function (){
+            Route::name('goi-credit.')->group(function (){
+                Route::get('/','GoiCreditController@index');
+            }); 
+        });
+
+
+        /** Quản lý câu hỏi
+         * 
+         */
+        Route::prefix('cau-hoi')->group(function (){
+            Route::name('cau-hoi.')->group(function (){
+                Route::get('/','CauHoiController@index');
+                Route::get('/{id}','CauHoiController@show');
+            }); 
+        });
+
+        
+
+        //// ......... Update
+
+    ///....Update.....
+    ///End middleware
 });
