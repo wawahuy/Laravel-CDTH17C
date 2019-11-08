@@ -113,6 +113,23 @@ Route::namespace('Web')->group(function (){
             }); 
         });
 
+        /** Quản lý lượt chơi
+         * 
+         */
+        Route::prefix('luot-choi')->group(function (){
+            Route::name('luot-choi.')->group(function (){
+                Route::get('/','LuotChoiController@danh_sach');
+            }); 
+        });
+
+        /** Quản lý chi tiết lượt chơi
+         * 
+         */
+        Route::prefix('chi-tiet-luot-choi')->group(function (){
+            Route::name('chi-tiet-luot-choi.')->group(function (){
+                Route::get('/','ChiTietLuotChoiController@danh_sach');
+            }); 
+        });
     });
 
 });

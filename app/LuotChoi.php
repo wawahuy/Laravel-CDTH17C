@@ -14,4 +14,8 @@ class LuotChoi extends Model
         'ngaygio',
         'diem'
     ];
+
+    public function NguoiChoi(){
+        return $this->belongsTo(NguoiChoi::class, 'nguoichoi_id', 'id');
+    }
 }
