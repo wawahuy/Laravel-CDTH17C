@@ -11,8 +11,8 @@
         ],
 
         "Quản lý người dùng" => [
-            "Danh sách" => 'nguoi-dung.',
-            "Thêm người dùng" => 'nguoi-dung.them-moi'
+            "Danh sách" => 'nguoi-choi.',
+            "Thêm người dùng" => 'nguoi-choi.them-moi'
         ],
 
         "Quản lý gói credit" => [
@@ -23,6 +23,12 @@
         "Quản lý quản trị viên" => [
             "Danh sách" => 'quan-tri-vien.',
             "Thêm quản trị viên" => 'quan-tri-vien.them-moi'
+        ],
+        "Quản lý lượt chơi" => [
+            "Danh sách" => 'luot-choi.'
+        ],
+        "Quản lý chi tiết lượt chơi" => [
+            "Danh sách" => 'chi-tiet-luot-choi.'
         ]
 
     ];

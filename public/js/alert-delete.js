@@ -53,8 +53,21 @@ function addWarning(){
 	});
 }
 
+function addShowpass(){
+	$("*[data-password]").css('cursor', 'pointer');
+	$("*[data-password]").click(function (e){
+		e.preventDefault();
+		var t = $(this);
+		$(t.attr('data-password')).attr('type', 'text');
+		setTimeout(function (t){
+			$(t.attr('data-password')).attr('type', 'password');
+		}, 1500, t);
+	});
+}
+
 $(document).ready(function () {
 	adddelete();
 	addWarning();
+	addShowpass();
 });
 

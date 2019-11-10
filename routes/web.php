@@ -71,14 +71,16 @@ Route::namespace('Web')->group(function (){
         /** Quản lý người dùng
          * 
          */
-        Route::prefix('nguoi-dung')->group(function (){
-            Route::name('nguoi-dung.')->group(function (){
-                Route::get('/','NguoiDungController@danh_sach');
-                Route::get('/them','NguoiDungController@them_moi')->name('them-moi');
-                Route::post('/them','NguoiDungController@xu_ly_them_moi')->name('xu-ly-them-moi');
-                Route::get('/xoa/{id}','NguoiDungController@xoa')->name('xoa');
-                Route::get('/sua/{id}','NguoiDungController@sua')->name('sua');
-                Route::post('/sua/{id}','NguoiDungController@xu_ly_sua')->name('xu-ly-sua');
+        Route::prefix('nguoi-choi')->group(function (){
+            Route::name('nguoi-choi.')->group(function (){
+                Route::get('/','NguoiChoiController@danh_sach');
+                Route::get('/them','NguoiChoiController@them_moi')->name('them-moi');
+                Route::post('/them','NguoiChoiController@xu_ly_them_moi')->name('xu-ly-them-moi');
+                Route::get('/xoa/{id}','NguoiChoiController@xoa')->name('xoa');
+                Route::get('/sua/{id}','NguoiChoiController@sua')->name('sua');
+                Route::post('/sua/{id}','NguoiChoiController@xu_ly_sua')->name('xu-ly-sua');
+                Route::get('/avatar/{id}','NguoiChoiController@them_avatar')->name('them-avatar');
+                Route::post('/avatar/{id}','NguoiChoiController@xu_ly_them_avatar')->name('xu-ly-them-avatar');
             }); 
         });
 
@@ -111,6 +113,23 @@ Route::namespace('Web')->group(function (){
             }); 
         });
 
+        /** Quản lý lượt chơi
+         * 
+         */
+        Route::prefix('luot-choi')->group(function (){
+            Route::name('luot-choi.')->group(function (){
+                Route::get('/','LuotChoiController@danh_sach');
+            }); 
+        });
+
+        /** Quản lý chi tiết lượt chơi
+         * 
+         */
+        Route::prefix('chi-tiet-luot-choi')->group(function (){
+            Route::name('chi-tiet-luot-choi.')->group(function (){
+                Route::get('/','ChiTietLuotChoiController@danh_sach');
+            }); 
+        });
     });
 
 });
