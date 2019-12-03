@@ -30,11 +30,6 @@
 @if(is_array($notifications))
     @foreach ($notifications as $notification)
         @if($notification['type'] == '')
-            {{-- <div class="alert alert-{{$classNameNotif[$notification['level']]}} alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-ban"></i> {{ $notification['level'] == 'error' ? "Lỗi" : "Thành công"}}!</h4>
-                    {{$notification["message"]}}
-            </div> --}}
             <script>
                 $(document).ready(function (){
                     toastr["{{$classNameNotif[$notification['level']]}}"]("{{$notification["message"]}}")
