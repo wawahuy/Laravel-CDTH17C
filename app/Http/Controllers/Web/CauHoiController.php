@@ -133,4 +133,30 @@ class CauHoiController extends Controller
         return redirect()->route('cau-hoi.sua',compact("id"));
     }
 
+    /**
+     * Trang thùng rác
+     */
+    public function thung_rac(){
+        $dsCauHoiDaXoa = CauHoi::onlyTrashed()->get();
+        return view('cau-hoi.thung-rac', compact('dsCauHoiDaXoa'));
+    }
+
+    /**
+     * Xử lý khôi phục câu hỏi đã xóa
+     */
+
+     public function xu_ly_thung_rac($id)
+     {
+        $cauhoi = CauHoi::onlyTrashed()->find($id);
+        
+        if($cauhoi == null){
+            self::sweet_error('Khôi phục thất bại');
+            return redirect()->route('cau-hoi.thung-rac');
+        }
+
+        $cauhoi->restore();
+
+        self::sweet_success('Khôi phục thành công');
+        return redirect()->route('cau-hoi.thung-rac');
+     }
 }

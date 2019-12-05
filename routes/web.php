@@ -50,6 +50,9 @@ Route::namespace('Web')->group(function (){
                 Route::get('/xoa/{id}','CauHoiController@xoa')->name('xoa');
                 Route::get('/sua/{id}','CauHoiController@sua')->name('sua');
                 Route::post('/sua/{id}','CauHoiController@xu_ly_sua')->name('xu-ly-sua');
+                Route::get('/thung-rac', 'CauHoiController@thung_rac')->name('thung-rac');
+                Route::get('/thung-rac/{id}', 'CauHoiController@xu_ly_thung_rac')->name('xu-ly-thung-rac');
+                });
             }); 
         });
 
@@ -131,5 +134,3 @@ Route::namespace('Web')->group(function (){
             }); 
         });
     });
-
-});
