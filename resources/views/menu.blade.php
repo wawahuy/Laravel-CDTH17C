@@ -2,7 +2,8 @@
     $ar_menu = [
         "Quản lý câu hỏi" => [
             "Danh sách" => 'cau-hoi.',
-            "Thêm câu hỏi" => 'cau-hoi.them-moi'
+            "Thêm câu hỏi" => 'cau-hoi.them-moi',
+            "Thùng rác" =>'cau-hoi.thung-rac'
         ],
 
         "Quản lý lĩnh vực" => [

@@ -61,6 +61,22 @@ Route::namespace("Api")->group(function (){
 
         //// ......... Update
 
+        Route::post('/login', function (Request $request) {
+            if($request->user == "admin" && $request->pass == "admin"){
+                 return response()->json([
+                     "status" => true,
+                     "message" => "Dang nhap thanh cong"
+                 ]);
+            }
+            return response()->json([
+                "status" => false,
+                "message" => "Dang nhap thaats bai "
+            ]);
+        });
+
+
+
+
     ///....Update.....
     ///End middleware
 });
