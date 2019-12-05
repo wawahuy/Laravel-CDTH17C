@@ -1,15 +1,12 @@
 @extends('layout')
-@section('title', 'Quản lí câu hỏi')
-@section('content-header', 'Quản lí câu hỏi')
+@section('title', 'Thùng rác câu hỏi')
+@section('content-header', 'Thùng rác câu hỏi')
 @section('content')
 
 <div class="box">
     <!-- /.box-header -->
     <div class="box-body">
-    <a href="{{route('cau-hoi.them-moi')}}"><button type="button" class="btn btn-default ">Thêm mới <i class="fa fa-fw fa-plus-square-o"></i></button></a>
-    <a href="{{route('cau-hoi.thung-rac')}}"><button type="button" class="btn btn-default">Thùng rác <i class="fa fa-fw fa-trash-o"></i></button></a>
-
-    <table id="dataTable" class="table table-bordered table-striped">
+      <table id="dataTable" class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>ID</th>
@@ -25,7 +22,7 @@
         </thead>
         <tbody>
 
-@foreach ($dsCauHoi as $cauhoi)
+@foreach ($dsCauHoiDaXoa as $cauhoi)
           <tr>
               <td>{{$cauhoi->id}}</td>
               <td>{{$cauhoi->noidung}} </td>
@@ -36,11 +33,8 @@
               <td>{{$cauhoi->phuongan_D}}</td>
               <td>{{$cauhoi->dapan}}</td>
               <td>
-                <a class="btn btn-app" href="{{route('cau-hoi.sua', ["id" => $cauhoi->id])}}">
-                  <i class="fa fa-edit "></i> Sửa
-                </a>
-                <a class="btn btn-app alert-delete disabled" href="{{route('cau-hoi.xoa', ["id" => $cauhoi->id])}}">
-                  <i class="fa fa-trash"></i> Xóa
+                <a class="btn btn-app" href="{{route('cau-hoi.xu-ly-thung-rac',["id" => $cauhoi->id])}}">
+                  <i class="fa fa-recycle "></i> Restore
                 </a>
               </td>
           </tr>
