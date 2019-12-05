@@ -26,7 +26,7 @@ class CauHinhController extends Controller
 
         $cau_hinh_tro_giup = CauHinhTroGiup::all()
                                 ->first()
-                                ->get(['loai_tro_giup', 'thu_tu', 'credit'])[0];
+                                ->get(['loai_tro_giup', 'thu_tu', 'credit']);
 
         $cau_hinh_cau_hoi = CauHinhDiemCauHoi::all()
                                 ->first()
