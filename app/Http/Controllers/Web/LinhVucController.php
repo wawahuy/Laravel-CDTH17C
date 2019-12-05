@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Components\Notification;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FormLinhVucRequest;
 use App\LinhVuc;
 use Illuminate\Http\Request;
 
@@ -28,8 +29,9 @@ class LinhVucController extends Controller
      *
      * @return void
      */
-    public function them_moi(Request $req){
-       return view('linh-vuc.them-moi');
+    public function them_moi()
+    {
+           return view('linh-vuc.them-moi');
     }
     
 
@@ -39,14 +41,7 @@ class LinhVucController extends Controller
      * @param Request $request
      * @return void
      */
-    public function xu_ly_them_moi(Request $request){
-
-        /// Kiểm tra xem input ten_linh_vuc có và có khác rỗng không
-        if(!$request->filled(['ten_linh_vuc'])){
-            self::error('Không được bỏ trống!');
-            return redirect()->route('linh-vuc.them-moi')->withInput();
-        }
-
+    public function xu_ly_them_moi(FormLinhVucRequest $request){
         /// Kiêm tra id lĩnh vực
         if(LinhVuc::where('ten_linh_vuc', $request->ten_linh_vuc)->first() != null ){
             self::error('Lĩnh vực này đã tồn tại!');
@@ -101,12 +96,7 @@ class LinhVucController extends Controller
      * @param [type] $id
      * @return void
      */
-    public function xu_ly_sua(Request $request, $id){
-        if(!$request->filled(['ten_linh_vuc'])){
-            self::error('Không được bỏ trống!');
-            return redirect()->route('linh-vuc.sua', compact("id"))->withInput();
-        }
-
+    public function xu_ly_sua(FormLinhVucRequest $request, $id){
         /// Lấy Linh Vuc Model
         $linh_vuc = LinhVuc::find($id);
         if($linh_vuc == null){

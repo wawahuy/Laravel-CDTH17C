@@ -10,23 +10,25 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Tên lĩnh vực</th>
-                <th>Số câu hỏi</th>
+                <th>Tên gói</th>
+                <th>Credit</th>
+                <th>Số tiền</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
 
-@foreach ($dsLinhVuc as $linh_vuc)
+@foreach ($dsGoiCredit as $goi_credit)
         <tr>
-            <td>{{$linh_vuc->id}}</td>
-            <td>{{$linh_vuc->ten_linh_vuc}} </td>
-            <td>{{$linh_vuc->soLuongCauHoi}}</td>
+            <td>{{$goi_credit->id}}</td>
+            <td>{{$goi_credit->tengoi}} </td>
+            <td>{{$goi_credit->credit}}</td>
+            <td>{{$goi_credit->sotien}}</td>
             <td class="pull-right">
-              <a class="btn btn-app" href="{{route('linh-vuc.sua', ["id" => $linh_vuc->id])}}">
+              <a class="btn btn-app" href="{{route('goi-credit.sua', ["id" => $goi_credit->id])}}">
                 <i class="fa fa-edit "></i> Sửa
               </a>
-            <a class="btn btn-app alert-delete disabled" href="{{route('linh-vuc.xoa', ["id" => $linh_vuc->id])}}">
+            <a class="btn btn-app alert-delete disabled" href="{{route('goi-credit.xoa', ["id" => $goi_credit->id])}}">
                 <i class="fa fa-trash"></i> Xóa
               </a>
             </td>
@@ -36,8 +38,9 @@
         <tfoot>
                 <tr>
                     <th>ID</th>
-                    <th>Tên lĩnh vực</th>
-                    <th>Số câu hỏi</th>
+                    <th>Tên gói</th>
+                    <th>Credit</th>
+                    <th>Số tiền</th>
                     <th></th>
                 </tr> 
         </tfoot>

@@ -6,7 +6,7 @@
 
 
     <div class="box-header with-border">
-      <h3 class="box-title">Thêm mới</h3>
+      <h3 class="box-title">Thêm mới lĩnh vực</h3>
     </div>
 
     <!-- /.box-header -->

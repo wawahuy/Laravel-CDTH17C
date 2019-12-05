@@ -11,14 +11,26 @@
         ],
 
         "Quản lý người dùng" => [
-            "Danh sách" => 'nguoi-dung.',
-            "Thêm người dùng" => 'nguoi-dung.them-moi'
+            "Danh sách" => 'nguoi-choi.',
+            "Thêm người dùng" => 'nguoi-choi.them-moi'
         ],
 
         "Quản lý gói credit" => [
             "Danh sách" => 'goi-credit.',
             "Thêm gói credit" => 'goi-credit.them-moi'
+        ],
+
+        "Quản lý quản trị viên" => [
+            "Danh sách" => 'quan-tri-vien.',
+            "Thêm quản trị viên" => 'quan-tri-vien.them-moi'
+        ],
+        "Quản lý lượt chơi" => [
+            "Danh sách" => 'luot-choi.'
+        ],
+        "Quản lý chi tiết lượt chơi" => [
+            "Danh sách" => 'chi-tiet-luot-choi.'
         ]
+
     ];
 @endphp
 
@@ -31,7 +43,7 @@
     {{-- Check open menu --}}
     @php($active = false)            
     @foreach ($menu_child as $name_child => $routeName)
-    @php($active = $active || Request::routeIs($routeName))            
+    @php($active = $active || Request::routeIs($routeName) || strpos(Request::route()->getName(), $routeName) === 0)            
     @endforeach
 
     <li class="treeview {{$active ? 'menu-open active' : ''}}">
