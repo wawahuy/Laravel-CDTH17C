@@ -12,6 +12,7 @@ use App\LinhVuc;
 use App\NguoiChoi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class NguoiChoiController extends Controller
 {
@@ -48,7 +49,7 @@ class NguoiChoiController extends Controller
     public function xu_ly_them_moi(FormTTNguoiChoiRequest $request){
         NguoiChoi::create([
             'tendangnhap' => $request->ten_dang_nhap,
-            'matkhau' => $request->matkhau,
+            'matkhau' => Hash::make($request->matkhau),
             'email' => $request->email,
             'avatar' => '',
             'diemcaonhat' => 0,
@@ -179,4 +180,30 @@ class NguoiChoiController extends Controller
         return redirect()->route('nguoi-choi.sua', compact("id"));
     }
 
+    /**
+     * Trang thùng rác
+     */
+    public function thung_rac(){
+        $dsNguoiChoiDaXoa = NguoiChoi::onlyTrashed()->get();
+        return view('nguoi-choi.thung-rac', compact('dsNguoiChoiDaXoa'));
+    }
+
+    /**
+     * Xử lý khôi phục lĩnh vực đã xóa
+     */
+
+     public function xu_ly_thung_rac($id)
+     {
+        $nguoichoi = NguoiChoi::onlyTrashed()->find($id);
+        
+        if($nguoichoi == null){
+            self::sweet_error('Khôi phục thất bại');
+            return redirect()->route('nguoi-choi.thung-rac');
+        }
+
+        $nguoichoi->restore();
+
+        self::sweet_success('Khôi phục thành công');
+        return redirect()->route('nguoi-choi.thung-rac');
+     }
 }

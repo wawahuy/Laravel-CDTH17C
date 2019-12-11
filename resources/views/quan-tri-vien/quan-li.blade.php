@@ -6,7 +6,11 @@
 <div class="box">
     <!-- /.box-header -->
     <div class="box-body">
-      <table id="example1" class="table table-bordered table-striped">
+        <div style="margin:15px 0px 15px 0px; ">
+          <a href="{{route('quan-tri-vien.them-moi')}}"><button type="button" class="btn btn-default ">Thêm mới <i class="fa fa-fw fa-plus-square-o"></i></button></a>
+          <a href="{{route('quan-tri-vien.thung-rac')}}"><button type="button" class="btn btn-default">Thùng rác <i class="fa fa-fw fa-trash-o"></i></button></a>
+        </div>
+        <table id="example1" class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>ID</th>

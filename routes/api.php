@@ -65,12 +65,12 @@ Route::namespace("Api")->group(function (){
             if($request->user == "admin" && $request->pass == "admin"){
                  return response()->json([
                      "status" => true,
-                     "message" => "Dang nhap thanh cong"
+                     "message" => "Đăng nhập thành công"
                  ]);
             }
             return response()->json([
                 "status" => false,
-                "message" => "Dang nhap thaats bai "
+                "message" => "Đăng nhập thất bại"
             ]);
         });
 

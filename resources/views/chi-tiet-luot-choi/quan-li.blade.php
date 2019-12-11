@@ -26,6 +26,11 @@
             <td>{{$chi_tiet_luot_choi->CauHoi->noidung}}</td>
             <td>{{$chi_tiet_luot_choi->CauHoi->dapan}}</td>
             <td>{{$chi_tiet_luot_choi->diem}}</td>
+            <td>
+                <a class="btn btn-app alert-delete disabled" href="{{route('chi-tiet-luot-choi.xoa', ["id" => $chi_tiet_luot_choi->id])}}">
+                    <i class="fa fa-trash"></i> Xóa
+                  </a>
+            </td>
         </tr>
 @endforeach
         </tbody>

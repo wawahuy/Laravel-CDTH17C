@@ -24,13 +24,13 @@
             <td>{{$luot_choi->id}}</td>
             <td>{{$luot_choi->NguoiChoi->tendangnhap}} </td>
             <td>{{$luot_choi->socau}}</td>
-            <td>{{$luot_choi->ngaygio}}</td>
             <td>{{$luot_choi->diem}}</td>
-            {{-- <td class="pull-right">
-              <a class="btn btn-app" href="{{route('.chitiet', ["id" => $luot_choi->id])}}">
-                <i class="fa fa-edit "></i> Chi tiết
+            <td>{{$luot_choi->ngaygio}}</td>
+            <td class="pull-left">
+              <a class="btn btn-app" href="{{route('chi-tiet-luot-choi.', ["id" => $luot_choi->id])}}">
+                <i class="fa fa-navicon"></i> Chi tiết lượt chơi
               </a>
-            </td> --}}
+            </td>
         </tr>
 @endforeach
         </tbody>

@@ -110,5 +110,30 @@ class GoiCreditController extends Controller
         self::success('Sửa lĩnh vực thành công');
         return redirect()->route('goi-credit.sua', compact("id"));
     }
+    /**
+     * Trang thùng rác
+     */
+    public function thung_rac(){
+        $dsGoiCreditDaXoa = GoiCredit::onlyTrashed()->get();
+        return view('goi-credit.thung-rac', compact('dsGoiCreditDaXoa'));
+    }
 
+    /**
+     * Xử lý khôi phục lĩnh vực đã xóa
+     */
+
+     public function xu_ly_thung_rac($id)
+     {
+        $goicredit = GoiCredit::onlyTrashed()->find($id);
+        
+        if($goicredit == null){
+            self::sweet_error('Khôi phục thất bại');
+            return redirect()->route('linh-vuc.thung-rac');
+        }
+
+        $goicredit->restore();
+
+        self::sweet_success('Khôi phục thành công');
+        return redirect()->route('linh-vuc.thung-rac');
+     }
 }
