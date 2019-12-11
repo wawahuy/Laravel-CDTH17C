@@ -1,5 +1,6 @@
 <?php
 
+use App\ChiTietLuotChoi;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,11 +12,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        //$this->call(UsersTableSeeder::class);
         $this->call([
-            LinhVucSeeder::class,
-            CauHoiSeeder::class,
-            ThemQuanTriVienSeeder::class
+           // LinhVucSeeder::class,
+            //CauHoiSeeder::class,
+            //ThemQuanTriVienSeeder::class,
+            //LuotChoiSeeder::class,
+            //ChiTietLuotChoiSeeder::class
         ]);
     }
 }

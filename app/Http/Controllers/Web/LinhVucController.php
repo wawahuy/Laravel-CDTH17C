@@ -110,5 +110,32 @@ class LinhVucController extends Controller
         self::success('Sửa lĩnh vực thành công');
         return redirect()->route('linh-vuc.sua', compact("id"));
     }
+    
+    /**
+     * Trang thùng rác
+     */
+    public function thung_rac(){
+        $dsLinhVucDaXoa = LinhVuc::onlyTrashed()->get();
+        return view('linh-vuc.thung-rac', compact('dsLinhVucDaXoa'));
+    }
+
+    /**
+     * Xử lý khôi phục lĩnh vực đã xóa
+     */
+
+     public function xu_ly_thung_rac($id)
+     {
+        $linhvuc = LinhVuc::onlyTrashed()->find($id);
+        
+        if($linhvuc == null){
+            self::sweet_error('Khôi phục thất bại');
+            return redirect()->route('linh-vuc.thung-rac');
+        }
+
+        $linhvuc->restore();
+
+        self::sweet_success('Khôi phục thành công');
+        return redirect()->route('linh-vuc.thung-rac');
+     }
 
 }
