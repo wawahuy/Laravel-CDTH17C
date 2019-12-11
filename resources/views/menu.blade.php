@@ -14,7 +14,7 @@
 
         "Quản lý người dùng" => [
             "Danh sách" => 'nguoi-choi.',
-            "Thêm người dùng" => 'nguoi-choi.them-moi',
+            "Thêm người chơi" => 'nguoi-choi.them-moi',
             "Thùng rác" => 'nguoi-choi.thung-rac'
         ],
 
