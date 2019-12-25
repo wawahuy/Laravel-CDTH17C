@@ -19,12 +19,16 @@ use Illuminate\Http\Request;
 
 
 Route::namespace("Api")->group(function (){
+    Route::name("api.")->group(function (){
 
+    /// Error auth
+    Route::get('/', 'NguoiChoiController@unauthenticated')->name('unauthenticated');
+    
+    /// JWT Login
+    Route::post('login', 'NguoiChoiController@login')->name('login');
 
-    ///Phần xác thực qua token sẽ được xây dựng sao
-    ///Middleware authencation
-    ///....Update.....
-
+    /// JWT Auth
+    Route::middleware("auth:api")->group(function (){
 
         /**
          * LĨNH VỰC
@@ -83,9 +87,71 @@ Route::namespace("Api")->group(function (){
         });
 
 
+        /**
+         * LƯỢT CHƠI
+         */
+        Route::prefix('luot-choi')->group(function (){
+            Route::name('luot-choi.')->group(function (){
+                
+                /**
+                 * API lấy danh sách lượt chơi của tài khoản đang đăng nhập
+                 */
+                Route::get('/','LuotChoiController@index');
 
-        //// ......... Update
+                /**
+                 * API lấy danh sách lượt chơi của tk khoản khác
+                 */
+                Route::get('/{id}', 'LuotChoiController@show');
+
+            }); 
+        });
+
+
+    /// End Authenticate
+    });
+
+
+
+    /**
+     * Test API
+     * Support project YUH Android Library
+     * 
+     */
+    Route::prefix('test')->group(function(){
+
+        Route::post('/post_data', function (Request $request){
+            return response()->json([
+                "status" => true,
+                "message" => "",
+                "data" => $request->input()
+            ]);
+        });
+
+        Route::post('/post_file', function (Request $request){
+            // extension=php_fileinfo.dll
+            return response()->json([
+                "status" => true,
+                "message" => "",
+                "data" => [
+                    $request->input(),
+                    $request->file('TestFile')->getSize(),
+                    Storage::url($request->file('TestFile')->store('upload'))
+                ]
+            ]);
+        });
+
+        Route::get('/get', function (){
+            return response()->json([
+                "status" => true,
+                "message" => "",
+                "data" => [
+                ]
+            ]);
+        });
+
+    });
 
     ///....Update.....
     ///End middleware
+    });
 });
