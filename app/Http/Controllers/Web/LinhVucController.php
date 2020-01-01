@@ -63,13 +63,13 @@ class LinhVucController extends Controller
         $linhvuc = LinhVuc::find($id);
         
         if($linhvuc == null){
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('linh-vuc.');
         }
 
         $linhvuc->delete();
 
-        self::sweet_success('Xóa thành công');
+        self::success('Xóa thành công');
         return redirect()->route('linh-vuc.');
     }
 
@@ -81,7 +81,7 @@ class LinhVucController extends Controller
         $linh_vuc = LinhVuc::find($id);
 
         if($linh_vuc == null){
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('linh-vuc.');
         }
 
@@ -100,7 +100,7 @@ class LinhVucController extends Controller
         /// Lấy Linh Vuc Model
         $linh_vuc = LinhVuc::find($id);
         if($linh_vuc == null){
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('linh-vuc.')->withInput();
         }
 
@@ -128,13 +128,13 @@ class LinhVucController extends Controller
         $linhvuc = LinhVuc::onlyTrashed()->find($id);
         
         if($linhvuc == null){
-            self::sweet_error('Khôi phục thất bại');
+            self::error('Khôi phục thất bại');
             return redirect()->route('linh-vuc.thung-rac');
         }
 
         $linhvuc->restore();
 
-        self::sweet_success('Khôi phục thành công');
+        self::success('Khôi phục thành công');
         return redirect()->route('linh-vuc.thung-rac');
      }
 
