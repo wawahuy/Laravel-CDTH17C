@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Web;
 
 use App\Components\Notification;
+use App\GoiCredit;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FormGoiCreditRequest;
 use App\Http\Requests\FormLinhVucRequest;
 use App\LinhVuc;
 use Illuminate\Http\Request;
 
-class LinhVucController extends Controller
+class GoiCreditController extends Controller
 {
     use Notification;
 
@@ -19,8 +21,8 @@ class LinhVucController extends Controller
      */
     public function danh_sach(Request $req)
     {
-        $dsLinhVuc = LinhVuc::all();
-        return view('linh-vuc.quan-li', compact('dsLinhVuc'));
+        $dsGoiCredit = GoiCredit::all();
+        return view('goi-credit.quan-li', compact('dsGoiCredit'));
     }
 
 
@@ -31,7 +33,7 @@ class LinhVucController extends Controller
      */
     public function them_moi()
     {
-           return view('linh-vuc.them-moi');
+           return view('goi-credit.them-moi');
     }
     
 
@@ -41,36 +43,32 @@ class LinhVucController extends Controller
      * @param Request $request
      * @return void
      */
-    public function xu_ly_them_moi(FormLinhVucRequest $request){
-        /// Kiêm tra id lĩnh vực
-        if(LinhVuc::where('ten_linh_vuc', $request->ten_linh_vuc)->first() != null ){
-            self::error('Lĩnh vực này đã tồn tại!');
-            return redirect()->route('linh-vuc.them-moi')->withInput();
-        }
-
-        LinhVuc::create([
-            'ten_linh_vuc' => $request->ten_linh_vuc,
+    public function xu_ly_them_moi(FormGoiCreditRequest $request){
+        GoiCredit::create([
+            'tengoi' => $request->tengoi,
+            'credit' => $request->credit,
+            'sotien' => $request->sotien
         ]);
 
         self::success('Thêm thành công!');
-        return redirect()->route('linh-vuc.them-moi');
+        return redirect()->route('goi-credit.them-moi');
     }
 
     /**
      * Xóa
      */
     public function xoa(Request $req, $id){
-        $linhvuc = LinhVuc::find($id);
+        $goi_credit = GoiCredit::find($id);
         
-        if($linhvuc == null){
+        if($goi_credit == null){
             self::sweet_error('Không tìm thấy!');
-            return redirect()->route('linh-vuc.');
+            return redirect()->route('goi-credit.');
         }
 
-        $linhvuc->delete();
+        $goi_credit->delete();
 
         self::sweet_success('Xóa thành công');
-        return redirect()->route('linh-vuc.');
+        return redirect()->route('goi-credit.');
     }
 
 
@@ -78,14 +76,14 @@ class LinhVucController extends Controller
      * Trang Sửa
      */
     public function sua(Request $request, $id){
-        $linh_vuc = LinhVuc::find($id);
+        $goi_credit = GoiCredit::find($id);
 
-        if($linh_vuc == null){
+        if($goi_credit == null){
             self::sweet_error('Không tìm thấy!');
-            return redirect()->route('linh-vuc.');
+            return redirect()->route('goi-credit.');
         }
 
-        return view('linh-vuc.sua', compact('linh_vuc'));
+        return view('goi-credit.sua', compact('goi_credit'));
     }
 
 
@@ -96,27 +94,28 @@ class LinhVucController extends Controller
      * @param [type] $id
      * @return void
      */
-    public function xu_ly_sua(FormLinhVucRequest $request, $id){
+    public function xu_ly_sua(FormGoiCreditRequest $request, $id){
         /// Lấy Linh Vuc Model
-        $linh_vuc = LinhVuc::find($id);
-        if($linh_vuc == null){
+        $goi_credit = GoiCredit::find($id);
+        if($goi_credit == null){
             self::sweet_error('Không tìm thấy!');
-            return redirect()->route('linh-vuc.')->withInput();
+            return redirect()->route('goi-credit.')->withInput();
         }
 
-        $linh_vuc->ten_linh_vuc = $request->ten_linh_vuc;
-        $linh_vuc->save();
+        $goi_credit->tengoi = $request->tengoi;
+        $goi_credit->credit = $request->credit;
+        $goi_credit->sotien = $request->sotien;
+        $goi_credit->save();
 
         self::success('Sửa lĩnh vực thành công');
-        return redirect()->route('linh-vuc.sua', compact("id"));
+        return redirect()->route('goi-credit.sua', compact("id"));
     }
-    
     /**
      * Trang thùng rác
      */
     public function thung_rac(){
-        $dsLinhVucDaXoa = LinhVuc::onlyTrashed()->get();
-        return view('linh-vuc.thung-rac', compact('dsLinhVucDaXoa'));
+        $dsGoiCreditDaXoa = GoiCredit::onlyTrashed()->get();
+        return view('goi-credit.thung-rac', compact('dsGoiCreditDaXoa'));
     }
 
     /**
@@ -125,17 +124,16 @@ class LinhVucController extends Controller
 
      public function xu_ly_thung_rac($id)
      {
-        $linhvuc = LinhVuc::onlyTrashed()->find($id);
+        $goicredit = GoiCredit::onlyTrashed()->find($id);
         
-        if($linhvuc == null){
+        if($goicredit == null){
             self::sweet_error('Khôi phục thất bại');
             return redirect()->route('linh-vuc.thung-rac');
         }
 
-        $linhvuc->restore();
+        $goicredit->restore();
 
         self::sweet_success('Khôi phục thành công');
         return redirect()->route('linh-vuc.thung-rac');
      }
-
 }

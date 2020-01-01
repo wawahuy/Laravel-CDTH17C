@@ -3,9 +3,12 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class Authenticate extends Middleware
 {
+
     /**
      * Get the path the user should be redirected to when they are not authenticated.
      *
@@ -15,6 +18,12 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
+            /// Api
+            if(Route::is("api.*")){
+                return route('api.unauthenticated');
+            }
+
+            /// Web
             return route('dang-nhap.');
         }
     }

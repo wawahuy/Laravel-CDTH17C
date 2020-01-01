@@ -12,7 +12,6 @@
 */
 
 Route::namespace('Web')->group(function (){
-
     Route::get('/', function (){
         return redirect()->route('cau-hoi.');
     });
@@ -37,7 +36,7 @@ Route::namespace('Web')->group(function (){
     /** Xác thực
      * 
      */
-    Route::middleware('auth')->group(function (){
+    Route::middleware('auth:web')->group(function (){
         
         /** Quản lý câu hỏi
          * 
@@ -50,6 +49,9 @@ Route::namespace('Web')->group(function (){
                 Route::get('/xoa/{id}','CauHoiController@xoa')->name('xoa');
                 Route::get('/sua/{id}','CauHoiController@sua')->name('sua');
                 Route::post('/sua/{id}','CauHoiController@xu_ly_sua')->name('xu-ly-sua');
+                Route::get('/thung-rac', 'CauHoiController@thung_rac')->name('thung-rac');
+                Route::get('/thung-rac/{id}', 'CauHoiController@xu_ly_thung_rac')->name('xu-ly-thung-rac');
+                });
             }); 
         });
 
@@ -64,6 +66,8 @@ Route::namespace('Web')->group(function (){
                 Route::get('/xoa/{id}','LinhVucController@xoa')->name('xoa');
                 Route::get('/sua/{id}','LinhVucController@sua')->name('sua');
                 Route::post('/sua/{id}','LinhVucController@xu_ly_sua')->name('xu-ly-sua');
+                Route::get('/thung-rac', 'LinhVucController@thung_rac')->name('thung-rac');
+                Route::get('/thung-rac/{id}', 'LinhVucController@xu_ly_thung_rac')->name('xu-ly-thung-rac');
             }); 
         });
 
@@ -71,14 +75,18 @@ Route::namespace('Web')->group(function (){
         /** Quản lý người dùng
          * 
          */
-        Route::prefix('nguoi-dung')->group(function (){
-            Route::name('nguoi-dung.')->group(function (){
-                Route::get('/','NguoiDungController@danh_sach');
-                Route::get('/them','NguoiDungController@them_moi')->name('them-moi');
-                Route::post('/them','NguoiDungController@xu_ly_them_moi')->name('xu-ly-them-moi');
-                Route::get('/xoa/{id}','NguoiDungController@xoa')->name('xoa');
-                Route::get('/sua/{id}','NguoiDungController@sua')->name('sua');
-                Route::post('/sua/{id}','NguoiDungController@xu_ly_sua')->name('xu-ly-sua');
+        Route::prefix('nguoi-choi')->group(function (){
+            Route::name('nguoi-choi.')->group(function (){
+                Route::get('/','NguoiChoiController@danh_sach');
+                Route::get('/them','NguoiChoiController@them_moi')->name('them-moi');
+                Route::post('/them','NguoiChoiController@xu_ly_them_moi')->name('xu-ly-them-moi');
+                Route::get('/xoa/{id}','NguoiChoiController@xoa')->name('xoa');
+                Route::get('/sua/{id}','NguoiChoiController@sua')->name('sua');
+                Route::post('/sua/{id}','NguoiChoiController@xu_ly_sua')->name('xu-ly-sua');
+                Route::get('/avatar/{id}','NguoiChoiController@them_avatar')->name('them-avatar');
+                Route::post('/avatar/{id}','NguoiChoiController@xu_ly_them_avatar')->name('xu-ly-them-avatar');
+                Route::get('/thung-rac', 'NguoiChoiController@thung_rac')->name('thung-rac');
+                Route::get('/thung-rac/{id}', 'NguoiChoiController@xu_ly_thung_rac')->name('xu-ly-thung-rac');
             }); 
         });
 
@@ -94,6 +102,8 @@ Route::namespace('Web')->group(function (){
                 Route::get('/xoa/{id}','GoiCreditController@xoa')->name('xoa');
                 Route::get('/sua/{id}','GoiCreditController@sua')->name('sua');
                 Route::post('/sua/{id}','GoiCreditController@xu_ly_sua')->name('xu-ly-sua');
+                Route::get('/thung-rac', 'GoiCreditController@thung_rac')->name('thung-rac');
+                Route::get('/thung-rac/{id}', 'GoiCreditController@xu_ly_thung_rac')->name('xu-ly-thung-rac');
             }); 
         });
 
@@ -108,6 +118,8 @@ Route::namespace('Web')->group(function (){
                 Route::get('/xoa/{id}','QuanTriVienController@xoa')->name('xoa');
                 Route::get('/sua/{id}','QuanTriVienController@sua')->name('sua');
                 Route::post('/sua/{id}','QuanTriVienController@xu_ly_sua')->name('xu-ly-sua');
+                Route::get('/thung-rac', 'QuanTriVienController@thung_rac')->name('thung-rac');
+                Route::get('/thung-rac/{id}', 'QuanTriVienController@xu_ly_thung_rac')->name('xu-ly-thung-rac');
             }); 
         });
 
@@ -117,6 +129,7 @@ Route::namespace('Web')->group(function (){
         Route::prefix('luot-choi')->group(function (){
             Route::name('luot-choi.')->group(function (){
                 Route::get('/','LuotChoiController@danh_sach');
+                Route::get('/xoa/{id}','LuotChoiController@xoa')->name('xoa');
             }); 
         });
 
@@ -125,9 +138,8 @@ Route::namespace('Web')->group(function (){
          */
         Route::prefix('chi-tiet-luot-choi')->group(function (){
             Route::name('chi-tiet-luot-choi.')->group(function (){
+                Route::get('/xoa/{id}','ChiTietLuotChoiController@xoa')->name('xoa');
                 Route::get('/','ChiTietLuotChoiController@danh_sach');
             }); 
         });
     });
-
-});

@@ -2,13 +2,13 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-class NguoiChoi extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+class NguoiChoi extends Authenticatable implements JWTSubject
 {
     use SoftDeletes;
-    
+
     protected $table = 'nguoi_chois';
 
     protected $fillable = [
@@ -17,6 +17,27 @@ class NguoiChoi extends Model
         'email',
         'avatar',
         'diemcaonhat',
+        'remember_token',
         'credit'
     ];
+
+    protected $hidden = ['matkhau', 'remember_token'];
+
+    public function getPassswordAttribute(){
+        return $this->matkhau;
+    }
+
+    public function getAuthPassword(){
+        return $this->matkhau;
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

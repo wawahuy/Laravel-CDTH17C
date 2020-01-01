@@ -68,7 +68,11 @@ class QuanTriVienController extends Controller
                 ->route('quan-tri-vien.them-moi')
                 ->withInput();
         }
-        QuanTriVien::create(['ho_ten' => $request->ho_ten, 'tai_khoan' => $request->tai_khoan, 'mat_khau' => Hash::make($request->mat_khau) ]);
+        QuanTriVien::create([
+            'ho_ten' => $request->ho_ten, 
+            'tai_khoan' => $request->tai_khoan, 
+            'mat_khau' => Hash::make($request->mat_khau) 
+            ]);
 
         self::success('Thêm thành công');
         return redirect()
@@ -134,5 +138,31 @@ class QuanTriVienController extends Controller
             ->route('quan-tri-vien');
 
     }
+    /**
+     * Trang thùng rác
+     */
+    public function thung_rac(){
+        $dsQuanTriVienDaXoa = QuanTriVien::onlyTrashed()->get();
+        return view('quan-tri-vien.thung-rac', compact('dsQuanTriVienDaXoa'));
+    }
+
+    /**
+     * Xử lý khôi phục lĩnh vực đã xóa
+     */
+
+     public function xu_ly_thung_rac($id)
+     {
+        $quantrivien = QuanTriVien::onlyTrashed()->find($id);
+        
+        if($quantrivien == null){
+            self::sweet_error('Khôi phục thất bại');
+            return redirect()->route('quan-tri-vien.thung-rac');
+        }
+
+        $quantrivien->restore();
+
+        self::sweet_success('Khôi phục thành công');
+        return redirect()->route('quan-tri-vien.thung-rac');
+     }
 }
 
