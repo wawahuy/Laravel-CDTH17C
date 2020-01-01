@@ -61,13 +61,13 @@ class GoiCreditController extends Controller
         $goi_credit = GoiCredit::find($id);
         
         if($goi_credit == null){
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('goi-credit.');
         }
 
         $goi_credit->delete();
 
-        self::sweet_success('Xóa thành công');
+        self::success('Xóa thành công');
         return redirect()->route('goi-credit.');
     }
 
@@ -79,7 +79,7 @@ class GoiCreditController extends Controller
         $goi_credit = GoiCredit::find($id);
 
         if($goi_credit == null){
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('goi-credit.');
         }
 
@@ -98,7 +98,7 @@ class GoiCreditController extends Controller
         /// Lấy Linh Vuc Model
         $goi_credit = GoiCredit::find($id);
         if($goi_credit == null){
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('goi-credit.')->withInput();
         }
 
@@ -127,13 +127,13 @@ class GoiCreditController extends Controller
         $goicredit = GoiCredit::onlyTrashed()->find($id);
         
         if($goicredit == null){
-            self::sweet_error('Khôi phục thất bại');
+            self::error('Khôi phục thất bại');
             return redirect()->route('linh-vuc.thung-rac');
         }
 
         $goicredit->restore();
 
-        self::sweet_success('Khôi phục thành công');
+        self::success('Khôi phục thành công');
         return redirect()->route('linh-vuc.thung-rac');
      }
 }
