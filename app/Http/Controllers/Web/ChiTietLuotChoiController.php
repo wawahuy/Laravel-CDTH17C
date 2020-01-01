@@ -18,6 +18,47 @@ class ChiTietLuotChoiController extends Controller
         $dsChiTietLuotChoi = ChiTietLuotChoi::all();
         return view('chi-tiet-luot-choi.quan-li', compact('dsChiTietLuotChoi'));
     }
+    /**
+     * Xóa
+     */
+    public function xoa(Request $req, $id){
+        $chitietluotchoi = ChiTietLuotChoi::find($id);
+        
+        if($chitietluotchoi == null){
+            self::sweet_error('Không tìm thấy!');
+            return redirect()->route('chi-tiet-luot-choi.');
+        }
 
+        $chitietluotchoi->delete();
+
+        self::sweet_success('Xóa thành công');
+        return redirect()->route('chi-tiet-luot-choi.');
+    }
+    /**
+     * Trang thùng rác
+     */
+    public function thung_rac(){
+        $dsChiTietLuotChoiDaXoa = ChiTietLuotChoi::onlyTrashed()->get();
+        return view('chi-tiet-luot-choi.thung-rac', compact('dsChiTietLuotChoiDaXoa'));
+    }
+
+    /**
+     * Xử lý khôi phục lĩnh vực đã xóa
+     */
+
+     public function xu_ly_thung_rac($id)
+     {
+        $chitietluotchoi = ChiTietLuotChoi::onlyTrashed()->find($id);
+        
+        if($chitietluotchoi == null){
+            self::sweet_error('Khôi phục thất bại');
+            return redirect()->route('chi-tiet-luot-choi.thung-rac');
+        }
+
+        $chitietluotchoi->restore();
+
+        self::sweet_success('Khôi phục thành công');
+        return redirect()->route('chi-tiet-luot-choi.thung-rac');
+     }
     
 }

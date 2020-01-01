@@ -1,12 +1,12 @@
 @extends('layout')
-@section('title', 'Thêm lĩnh vực')
-@section('content-header', 'Quản lí lĩnh vực')
+@section('title', 'Thêm gói credit')
+@section('content-header', 'Quản lí gói credit')
 @section('content')
 <div class="box box-primary">
 
 
     <div class="box-header with-border">
-      <h3 class="box-title">Thêm mới lĩnh vực</h3>
+      <h3 class="box-title">Thêm mới gói credit</h3>
     </div>
 
     <!-- /.box-header -->

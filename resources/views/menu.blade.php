@@ -2,27 +2,32 @@
     $ar_menu = [
         "Quản lý câu hỏi" => [
             "Danh sách" => 'cau-hoi.',
-            "Thêm câu hỏi" => 'cau-hoi.them-moi'
+            "Thêm câu hỏi" => 'cau-hoi.them-moi',
+            "Thùng rác" =>'cau-hoi.thung-rac'
         ],
 
         "Quản lý lĩnh vực" => [
             "Danh sách" => 'linh-vuc.',
-            "Thêm lĩnh vực" => 'linh-vuc.them-moi'
+            "Thêm lĩnh vực" => 'linh-vuc.them-moi',
+            "Thùng rác" => 'linh-vuc.thung-rac'
         ],
 
         "Quản lý người dùng" => [
             "Danh sách" => 'nguoi-choi.',
-            "Thêm người dùng" => 'nguoi-choi.them-moi'
+            "Thêm người chơi" => 'nguoi-choi.them-moi',
+            "Thùng rác" => 'nguoi-choi.thung-rac'
         ],
 
         "Quản lý gói credit" => [
             "Danh sách" => 'goi-credit.',
-            "Thêm gói credit" => 'goi-credit.them-moi'
+            "Thêm gói credit" => 'goi-credit.them-moi',
+            "Thùng rác" => 'goi-credit.thung-rac'
         ],
 
         "Quản lý quản trị viên" => [
             "Danh sách" => 'quan-tri-vien.',
-            "Thêm quản trị viên" => 'quan-tri-vien.them-moi'
+            "Thêm quản trị viên" => 'quan-tri-vien.them-moi',
+            "Thùng rác" => 'quan-tri-vien.thung-rac'
         ],
         "Quản lý lượt chơi" => [
             "Danh sách" => 'luot-choi.'

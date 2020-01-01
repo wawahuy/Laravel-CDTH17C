@@ -151,6 +151,22 @@ Route::namespace("Api")->group(function (){
 
     });
 
+        Route::post('/login', function (Request $request) {
+            if($request->user == "admin" && $request->pass == "admin"){
+                 return response()->json([
+                     "status" => true,
+                     "message" => "Đăng nhập thành công"
+                 ]);
+            }
+            return response()->json([
+                "status" => false,
+                "message" => "Đăng nhập thất bại"
+            ]);
+        });
+
+
+
+
     ///....Update.....
     ///End middleware
     });
