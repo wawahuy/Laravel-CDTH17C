@@ -25,7 +25,6 @@
             <td>{{$chi_tiet_luot_choi->CauHoi->noidung}}</td>
             <td>{{$chi_tiet_luot_choi->CauHoi->dapan}}</td>
             <td>{{$chi_tiet_luot_choi->diem}}</td>
-
         </tr>
 @endforeach
         </tbody>
