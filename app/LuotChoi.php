@@ -16,6 +16,6 @@ class LuotChoi extends Model
     ];
 
     public function NguoiChoi(){
-        return $this->belongsTo(NguoiChoi::class, 'nguoichoi_id', 'id');
+        return $this->belongsTo(NguoiChoi::class, 'nguoichoi_id', 'id')->withTrashed();
     }
 }
