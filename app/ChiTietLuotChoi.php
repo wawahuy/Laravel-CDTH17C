@@ -22,6 +22,6 @@ class ChiTietLuotChoi extends Model
 
     public function CauHoi()
     {
-        return $this->belongsTo(CauHoi::class, 'cauhoi_id', 'id');
+        return $this->belongsTo(CauHoi::class, 'cauhoi_id', 'id')->withTrashed();
     }
 }

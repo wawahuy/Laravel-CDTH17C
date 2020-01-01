@@ -25,13 +25,13 @@ class ChiTietLuotChoiController extends Controller
         $chitietluotchoi = ChiTietLuotChoi::find($id);
         
         if($chitietluotchoi == null){
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('chi-tiet-luot-choi.');
         }
 
         $chitietluotchoi->delete();
 
-        self::sweet_success('Xóa thành công');
+        self::success('Xóa thành công');
         return redirect()->route('chi-tiet-luot-choi.');
     }
     /**
@@ -51,13 +51,13 @@ class ChiTietLuotChoiController extends Controller
         $chitietluotchoi = ChiTietLuotChoi::onlyTrashed()->find($id);
         
         if($chitietluotchoi == null){
-            self::sweet_error('Khôi phục thất bại');
+            self::error('Khôi phục thất bại');
             return redirect()->route('chi-tiet-luot-choi.thung-rac');
         }
 
         $chitietluotchoi->restore();
 
-        self::sweet_success('Khôi phục thành công');
+        self::success('Khôi phục thành công');
         return redirect()->route('chi-tiet-luot-choi.thung-rac');
      }
     

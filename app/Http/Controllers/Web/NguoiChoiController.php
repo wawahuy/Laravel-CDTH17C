@@ -67,13 +67,13 @@ class NguoiChoiController extends Controller
         $nguoiChoi = NguoiChoi::find($id);
         
         if($nguoiChoi == null){
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('nguoi-choi.');
         }
 
         $nguoiChoi->delete();
 
-        self::sweet_success('Xóa thành công');
+        self::success('Xóa thành công');
         return redirect()->route('nguoi-choi.');
     }
 
@@ -85,7 +85,7 @@ class NguoiChoiController extends Controller
         $nguoi_choi = NguoiChoi::find($id);
 
         if($nguoi_choi == null){
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('nguoi-choi.');
         }
 
@@ -149,7 +149,7 @@ class NguoiChoiController extends Controller
         $nguoi_choi = NguoiChoi::find($id);
 
         if($nguoi_choi == null){
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('nguoi-choi.');
         }
 
@@ -168,7 +168,7 @@ class NguoiChoiController extends Controller
         /// Lấy Linh Vuc Model
         $nguoi_choi = NguoiChoi::find($id);
         if($nguoi_choi == null){
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('nguoi-choi.');
         }
 
@@ -197,13 +197,13 @@ class NguoiChoiController extends Controller
         $nguoichoi = NguoiChoi::onlyTrashed()->find($id);
         
         if($nguoichoi == null){
-            self::sweet_error('Khôi phục thất bại');
+            self::error('Khôi phục thất bại');
             return redirect()->route('nguoi-choi.thung-rac');
         }
 
         $nguoichoi->restore();
 
-        self::sweet_success('Khôi phục thành công');
+        self::success('Khôi phục thành công');
         return redirect()->route('nguoi-choi.thung-rac');
      }
 }
