@@ -19,7 +19,7 @@ class QuanTriVienController extends Controller
 
     public function xu_ly_dang_nhap(Request $request)
     {
-        if (Auth::attempt(['tai_khoan' => $request->tai_khoan, 'mat_khau' => $request
+        if (Auth::attempt(['tai_khoan' => $request->tai_khoan, 'password' => $request
             ->mat_khau]))
         {
             return redirect()
