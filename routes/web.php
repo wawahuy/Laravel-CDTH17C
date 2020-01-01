@@ -36,7 +36,7 @@ Route::namespace('Web')->group(function (){
     /** Xác thực
      * 
      */
-    Route::middleware('auth')->group(function (){
+    Route::middleware('auth:web')->group(function (){
         
         /** Quản lý câu hỏi
          * 
