@@ -14,7 +14,7 @@ class ChiTietLuotChoiSeeder extends Seeder
     {
         //
         ChiTietLuotChoi::create([
-            'luotchoi_id' => '4',
+            'luotchoi_id' => '1',
             'cauhoi_id' => '1',
             'phuongan' => 'C',
             'diem' => '1'

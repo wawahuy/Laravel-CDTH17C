@@ -5,9 +5,10 @@ namespace App\Components;
 
 trait APIResponse {
 
-    public function api_success($data){
+    public function api_success($data, $message = ''){
         return response()->json([
-            "status" => 200,
+            "status" => true,
+            "message" => $message,
             "data" => $data
         ]);
     }
@@ -15,7 +16,7 @@ trait APIResponse {
 
     public function api_error($message){
         return response()->json([
-            "status" => 400,
+            "status" => false,
             "message" => $message
         ]);
     }

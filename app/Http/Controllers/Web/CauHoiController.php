@@ -71,13 +71,13 @@ class CauHoiController extends Controller
         $cauhoi = CauHoi::find($id);
         
         if($cauhoi == null){
-            self::sweet_error('Xóa thất bại');
+            self::error('Xóa thất bại');
             return redirect()->route('cau-hoi.');
         }
 
         $cauhoi->delete();
 
-        self::sweet_success('Xóa thành công');
+        self::success('Xóa thành công');
         return redirect()->route('cau-hoi.');
     }
 
@@ -150,13 +150,13 @@ class CauHoiController extends Controller
         $cauhoi = CauHoi::onlyTrashed()->find($id);
         
         if($cauhoi == null){
-            self::sweet_error('Khôi phục thất bại');
+            self::error('Khôi phục thất bại');
             return redirect()->route('cau-hoi.thung-rac');
         }
 
         $cauhoi->restore();
 
-        self::sweet_success('Khôi phục thành công');
+        self::success('Khôi phục thành công');
         return redirect()->route('cau-hoi.thung-rac');
      }
 }

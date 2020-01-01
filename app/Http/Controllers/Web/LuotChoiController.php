@@ -25,13 +25,13 @@ class LuotChoiController extends Controller
         $luotchoi = LuotChoi::find($id);
         
         if($luotchoi == null){
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('luot-choi.');
         }
 
         $luotchoi->delete();
 
-        self::sweet_success('Xóa thành công');
+        self::success('Xóa thành công');
         return redirect()->route('luot-choi.');
     }
 
@@ -52,13 +52,13 @@ class LuotChoiController extends Controller
         $luotchoi = LuotChoi::onlyTrashed()->find($id);
         
         if($luotchoi == null){
-            self::sweet_error('Khôi phục thất bại');
+            self::error('Khôi phục thất bại');
             return redirect()->route('luot-choi.thung-rac');
         }
 
         $luotchoi->restore();
 
-        self::sweet_success('Khôi phục thành công');
+        self::success('Khôi phục thành công');
         return redirect()->route('luot-choi.thung-rac');
      }
 }

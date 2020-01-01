@@ -19,64 +19,141 @@ use Illuminate\Http\Request;
 
 
 Route::namespace("Api")->group(function (){
+    Route::name("api.")->group(function (){
 
-    ///Route::post("auth", "");
+    /// Error auth
+    Route::get('/', 'NguoiChoiController@unauthenticated')->name('unauthenticated');
+    
+    /// JWT Login
+    Route::post('login', 'NguoiChoiController@login')->name('login');
 
-    ///Phần xác thực qua token sẽ được xây dựng sao
-    ///Middleware authencation
-    ///....Update.....
+    /// JWT Auth
+    Route::middleware("auth:api")->group(function (){
 
-
-        /** Quản lý lĩnh vực
-         * 
+        /**
+         * LĨNH VỰC
          */
         Route::prefix('linh-vuc')->group(function (){
             Route::name('linh-vuc.')->group(function (){
+
+                /**
+                 * API lấy danh sách lĩnh vực
+                 */
                 Route::get('/','LinhVucController@index');
             }); 
         });
 
 
-        /** Quản lý goi credit
-         * 
+        /**
+         * GÓI CREDIT
          */
         Route::prefix('goi-credit')->group(function (){
             Route::name('goi-credit.')->group(function (){
+
+                /**
+                 * API lấy danh sách gói credit
+                 */
                 Route::get('/','GoiCreditController@index');
             }); 
         });
 
 
-        /** Quản lý câu hỏi
-         * 
+
+        /**
+         * CÂU HỎI
          */
         Route::prefix('cau-hoi')->group(function (){
             Route::name('cau-hoi.')->group(function (){
-                Route::get('/','CauHoiController@index');
-                Route::get('/{id}','CauHoiController@show');
+
+                // Route::get('/','CauHoiController@index');
+                // Route::get('/{id}','CauHoiController@show');
+
             }); 
         });
 
-        
 
-        //// ......... Update
+        /**
+         * CẤU HÌNH
+         */
+        Route::prefix('cau-hinh')->group(function (){
+            Route::name('cau-hinh.')->group(function (){
+                
+                /**
+                 * API lấy câu hình điểm câu hỏi
+                 */
+                Route::get('/','CauHinhController@index');
 
-        Route::post('/login', function (Request $request) {
-            if($request->user == "admin" && $request->pass == "admin"){
-                 return response()->json([
-                     "status" => true,
-                     "message" => "Đăng nhập thành công"
-                 ]);
-            }
+            }); 
+        });
+
+
+        /**
+         * LƯỢT CHƠI
+         */
+        Route::prefix('luot-choi')->group(function (){
+            Route::name('luot-choi.')->group(function (){
+                
+                /**
+                 * API lấy danh sách lượt chơi của tài khoản đang đăng nhập
+                 */
+                Route::get('/','LuotChoiController@index');
+
+                /**
+                 * API lấy danh sách lượt chơi của tk khoản khác
+                 */
+                Route::get('/{id}', 'LuotChoiController@show');
+
+            }); 
+        });
+
+
+    /// End Authenticate
+    });
+
+
+
+    /**
+     * Test API
+     * Support project YUH Android Library
+     * 
+     */
+    Route::prefix('test')->group(function(){
+
+        Route::post('/post_data', function (Request $request){
             return response()->json([
-                "status" => false,
-                "message" => "Đăng nhập thất bại"
+                "status" => true,
+                "message" => "",
+                "data" => $request->input()
             ]);
         });
 
+        Route::post('/post_file', function (Request $request){
+            // extension=php_fileinfo.dll
+            return response()->json([
+                "status" => true,
+                "message" => "",
+                "data" => [
+                    $request->input(),
+                    $request->file('TestFile')->getSize(),
+                    Storage::url($request->file('TestFile')->store('upload'))
+                ]
+            ]);
+        });
+
+        Route::get('/get', function (){
+            return response()->json([
+                "status" => true,
+                "message" => "",
+                "data" => [
+                ]
+            ]);
+        });
+
+    });
 
 
 
     ///....Update.....
     ///End middleware
+    });
 });

@@ -19,7 +19,7 @@ class QuanTriVienController extends Controller
 
     public function xu_ly_dang_nhap(Request $request)
     {
-        if (Auth::attempt(['tai_khoan' => $request->tai_khoan, 'mat_khau' => $request
+        if (Auth::attempt(['tai_khoan' => $request->tai_khoan, 'password' => $request
             ->mat_khau]))
         {
             return redirect()
@@ -89,7 +89,7 @@ class QuanTriVienController extends Controller
 
         if ($quan_tri_vien == null)
         {
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('quan-tri-vien.');
         }
         return view('quan-tri-vien.sua', compact('quan_tri_vien'));
@@ -104,7 +104,7 @@ class QuanTriVienController extends Controller
         $quan_tri_vien = QuanTriVien::find($id);
         if ($quan_tri_vien == null)
         {
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('quan-tri-vien')
                 ->withInput();
         }
@@ -129,7 +129,7 @@ class QuanTriVienController extends Controller
         $quan_tri_vien = QuanTriVien::find($id);
         if ($quan_tri_vien == null)
         {
-            self::sweet_error('Không tìm thấy!');
+            self::error('Không tìm thấy!');
             return redirect()->route('quan-tri-vien.');
         }
         $quan_tri_vien->delete();
@@ -155,13 +155,13 @@ class QuanTriVienController extends Controller
         $quantrivien = QuanTriVien::onlyTrashed()->find($id);
         
         if($quantrivien == null){
-            self::sweet_error('Khôi phục thất bại');
+            self::error('Khôi phục thất bại');
             return redirect()->route('quan-tri-vien.thung-rac');
         }
 
         $quantrivien->restore();
 
-        self::sweet_success('Khôi phục thành công');
+        self::success('Khôi phục thành công');
         return redirect()->route('quan-tri-vien.thung-rac');
      }
 }
