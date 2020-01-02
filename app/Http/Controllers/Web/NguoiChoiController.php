@@ -53,7 +53,8 @@ class NguoiChoiController extends Controller
             'email' => $request->email,
             'avatar' => '',
             'diemcaonhat' => 0,
-            'credit' => 0
+            'credit' => 0,
+            'remember_token' => ''
         ]);
 
         self::success('Thêm thành công!');
@@ -172,7 +173,7 @@ class NguoiChoiController extends Controller
             return redirect()->route('nguoi-choi.');
         }
 
-        $nguoi_choi->matkhau = $request->matkhau;
+        $nguoi_choi->matkhau =  Hash::make($request->matkhau);
         $nguoi_choi->email = $request->email;
         $nguoi_choi->save();
 

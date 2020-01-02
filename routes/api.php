@@ -22,13 +22,26 @@ Route::namespace("Api")->group(function (){
     Route::name("api.")->group(function (){
 
     /// Error auth
-    Route::get('/', 'NguoiChoiController@unauthenticated')->name('unauthenticated');
+    Route::any('unauthenticated', 'NguoiChoiController@unauthenticated')->name('unauthenticated');
     
     /// JWT Login
     Route::post('login', 'NguoiChoiController@login')->name('login');
 
+    /// Register
+    Route::post('register', 'NguoiChoiController@register')->name('register');
+
+    
+
     /// JWT Auth
     Route::middleware("auth:api")->group(function (){
+
+        /// Check Auth
+        Route::prefix('user')->group(function (){
+            Route::name('user.')->group(function (){
+                Route::any('/', 'NguoiChoiController@get_info')->name('get-info');
+                Route::any('/re_password', 'NguoiChoiController@re_password')->name('re-password');
+            });
+        });
 
         /**
          * LĨNH VỰC
@@ -64,10 +77,7 @@ Route::namespace("Api")->group(function (){
          */
         Route::prefix('cau-hoi')->group(function (){
             Route::name('cau-hoi.')->group(function (){
-
-                // Route::get('/','CauHoiController@index');
-                // Route::get('/{id}','CauHoiController@show');
-
+                Route::get('/lay-qua-linh-vuc/{id}','CauHoiController@lay_qua_linh_vuc');
             }); 
         });
 
@@ -102,6 +112,11 @@ Route::namespace("Api")->group(function (){
                  * API lấy danh sách lượt chơi của tk khoản khác
                  */
                 Route::get('/{id}', 'LuotChoiController@show');
+
+                /**
+                 * API Lưu lịch sử lược chơi
+                 */
+                Route::post('/new', 'LuotChoiController@store');
 
             }); 
         });
