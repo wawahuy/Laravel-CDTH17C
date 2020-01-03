@@ -8,6 +8,8 @@ use App\QuanTriVien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\View;
+
 class QuanTriVienController extends Controller
 {
     use Notification;
@@ -23,7 +25,7 @@ class QuanTriVienController extends Controller
             ->mat_khau]))
         {
             return redirect()
-                ->route('cau-hoi.');
+                ->route('profile.profile');
         }
 
         return redirect()
@@ -163,6 +165,23 @@ class QuanTriVienController extends Controller
 
         self::success('Khôi phục thành công');
         return redirect()->route('quan-tri-vien.thung-rac');
+     }
+
+     public function getProfile()
+     {
+         return View('profile');
+     }
+
+     public function xu_ly_cap_nhap(FormQuanTriVienRequest $request)
+     {
+        $quan_tri_vien = Auth::user();
+
+        $quan_tri_vien->ho_ten = $request->ho_ten;
+        $quan_tri_vien->mat_khau = Hash::make($request->mat_khau);
+        $quan_tri_vien->save();
+
+        self::success('Cập nhật thành công');
+        return redirect()->route('dang-nhap.');
      }
 }
 

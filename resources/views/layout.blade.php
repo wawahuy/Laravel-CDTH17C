@@ -51,9 +51,9 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="{{route('profile.profile')}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>GMG</b></span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>Game</b>Manager</span>
     </a>
@@ -271,31 +271,17 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{asset('img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
-            <span class="hidden-xs">admin</span>
+              @if(Auth::check())
+                <span class="hidden-xs">{{Auth::user()->ho_ten}}</span>
+              @endif
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="{{asset('img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
-
                 <p>
-                  No detail.
+                  {{Auth::user()->ho_ten}}
                 </p>
-              </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
@@ -320,11 +306,13 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{asset('img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+        <img src="{{asset('img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-        <p>admin</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          @if(Auth::check())
+            <p>{{Auth::user()->ho_ten}}</p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          @endif
         </div>
       </div>
       <!-- search form -->
