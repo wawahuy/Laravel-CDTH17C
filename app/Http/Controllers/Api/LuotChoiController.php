@@ -49,30 +49,47 @@ class LuotChoiController extends Controller
     {
         //
         $data = json_decode($request->data);
-        $nguoi_choi = Auth::user();
-        $score = CauHinhDiemCauHoi::where('thu_tu', count($data))->first();
-
-        if($score == null){
-            return $this->api_error("Có lỗi xãy ra.");
+        if(count($data) < 1){
+            return $this->api_error("Có lỗi xãy ra");
         }
+
+        $nguoi_choi = Auth::user();
+
+        $score = 0;
+        if(count($data) > 1){
+            $score = CauHinhDiemCauHoi::where('thu_tu', count($data))->first();
+            if($score == null){
+                return $this->api_error("Có lỗi xãy ra.");
+            }
+            $score = $score->diem;
+        } 
+
 
         $lc = new LuotChoi();
         $lc->nguoichoi_id = $nguoi_choi->id;
         $lc->socau = count($data);
-        $lc->diem = $score->diem;
+        $lc->diem = $score;
         $lc->save();
+
+        if($nguoi_choi->diemcaonhat < $score){
+            $nguoi_choi->diemcaonhat = $score;
+            $nguoi_choi->save();
+        }
 
         /// 
 
         $i = 1;
         foreach ($data as $cau_hoi_id) {
-            $score = CauHinhDiemCauHoi::where('thu_tu', $i)->first();
+            $score = 0;
+            if($i < count($data)){
+                $score = CauHinhDiemCauHoi::where('thu_tu', $i)->first()->diem;
+            }
             $i++;
             ChiTietLuotChoi::create([
                 "luotchoi_id" => $lc->id,
                 "cauhoi_id" => $cau_hoi_id,
                 "phuongan" => "--",
-                "diem" => $score->diem
+                "diem" => $score
             ]);
         }
 
@@ -80,19 +97,6 @@ class LuotChoiController extends Controller
         return $this->api_success(null, "Hoàn thành");
     }
 
-    /**
-     * API lấy bxh them điêm cao
-     */
-    public function ranking()
-    {
-        $luot_choi = LuotChoi::where([])->orderBy('diem', 'DESC')->offset(0)->take(20)->get();
-
-        foreach ($luot_choi as $lc) {
-            $lc->nguoi_choi = NguoiChoi::find($lc->nguoichoi_id);
-        }
-
-        return $this->api_success($luot_choi, '');
-    }
 
     /**
      * API lấy bxh them điêm cao

@@ -40,6 +40,7 @@ Route::namespace("Api")->group(function (){
                 Route::any('/', 'NguoiChoiController@get_info')->name('get-info');
                 Route::post('/re_password', 'NguoiChoiController@re_password')->name('re-password');
                 Route::post('/avatar', 'NguoiChoiController@avatar');
+                Route::get('/ranking', 'NguoiChoiController@ranking');
             });
         });
 
@@ -108,15 +109,6 @@ Route::namespace("Api")->group(function (){
         Route::prefix('luot-choi')->group(function (){
             Route::name('luot-choi.')->group(function (){
 
-                /**
-                 * API Lấy danh sách bxh điểm cao nhất
-                 */
-                Route::get('/ranking_score_all', 'LuotChoiController@ranking_score_all');
-
-                /**
-                 * API Lấy danh sách bxh điểm cao nhất
-                 */
-                Route::get('/ranking', 'LuotChoiController@ranking');
 
                 /**
                  * API lấy danh sách lượt chơi của tk khoản khác

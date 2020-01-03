@@ -108,6 +108,17 @@ class NguoiChoiController extends Controller
         return $this->api_success($nguoi_choi->avatar, "Tải ảnh đại diện thành công.");
     }
 
+    public function ranking()
+    {
+        $luot_choi = NguoiChoi::where([])->orderBy('diemcaonhat', 'DESC')->offset(0)->take(20)->get();
+
+        foreach ($luot_choi as $lc) {
+            $lc->nguoi_choi = NguoiChoi::find($lc->nguoichoi_id);
+        }
+
+        return $this->api_success($luot_choi, '');
+    }
+
 
     /**
      * Display a listing of the resource.
