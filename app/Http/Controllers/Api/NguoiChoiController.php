@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\NguoiChoi;
+use Illuminate\Support\Facades\Storage;
 
 class NguoiChoiController extends Controller
 {
@@ -89,6 +90,24 @@ class NguoiChoiController extends Controller
 
         return $this->api_success(null, "Đổi mật khẩu thành công.");
     }
+
+    public function avatar(Request $request){
+        $file = $request->file('file');
+        if(substr($file->getMimeType(), 0, 5) != 'image') {
+            return $this->api_error("Ảnh tải lên không hợp lệ.");
+        }
+
+        $nguoi_choi = Auth::user();
+        if($nguoi_choi->avatar != null){
+            Storage::delete($nguoi_choi->avatar);
+        }
+
+        //Storage::url
+        $nguoi_choi->avatar = $file->store('nguoi_choi');
+        $nguoi_choi->save();
+        return $this->api_success($nguoi_choi->avatar, "Tải ảnh đại diện thành công.");
+    }
+
 
     /**
      * Display a listing of the resource.

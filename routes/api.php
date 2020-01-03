@@ -30,7 +30,6 @@ Route::namespace("Api")->group(function (){
     /// Register
     Route::post('register', 'NguoiChoiController@register')->name('register');
 
-    
 
     /// JWT Auth
     Route::middleware("auth:api")->group(function (){
@@ -39,7 +38,8 @@ Route::namespace("Api")->group(function (){
         Route::prefix('user')->group(function (){
             Route::name('user.')->group(function (){
                 Route::any('/', 'NguoiChoiController@get_info')->name('get-info');
-                Route::any('/re_password', 'NguoiChoiController@re_password')->name('re-password');
+                Route::post('/re_password', 'NguoiChoiController@re_password')->name('re-password');
+                Route::post('/avatar', 'NguoiChoiController@avatar');
             });
         });
 
@@ -67,6 +67,11 @@ Route::namespace("Api")->group(function (){
                  * API lấy danh sách gói credit
                  */
                 Route::get('/','GoiCreditController@index');
+
+                /**
+                 * API cập nhật lại số credit
+                 */
+                Route::post('/cap-nhat-them','GoiCreditController@cap_nhat_them');
             }); 
         });
 
@@ -102,11 +107,16 @@ Route::namespace("Api")->group(function (){
          */
         Route::prefix('luot-choi')->group(function (){
             Route::name('luot-choi.')->group(function (){
-                
+
                 /**
-                 * API lấy danh sách lượt chơi của tài khoản đang đăng nhập
+                 * API Lấy danh sách bxh điểm cao nhất
                  */
-                Route::get('/','LuotChoiController@index');
+                Route::get('/ranking_score_all', 'LuotChoiController@ranking_score_all');
+
+                /**
+                 * API Lấy danh sách bxh điểm cao nhất
+                 */
+                Route::get('/ranking', 'LuotChoiController@ranking');
 
                 /**
                  * API lấy danh sách lượt chơi của tk khoản khác
@@ -117,7 +127,11 @@ Route::namespace("Api")->group(function (){
                  * API Lưu lịch sử lược chơi
                  */
                 Route::post('/new', 'LuotChoiController@store');
-
+                                
+                /**
+                 * API lấy danh sách lượt chơi của tài khoản đang đăng nhập
+                 */
+                Route::get('/','LuotChoiController@index');
             }); 
         });
 

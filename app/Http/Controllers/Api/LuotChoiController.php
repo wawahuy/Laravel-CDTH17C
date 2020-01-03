@@ -7,8 +7,10 @@ use App\ChiTietLuotChoi;
 use App\Components\APIResponse;
 use App\Http\Controllers\Controller;
 use App\LuotChoi;
+use App\NguoiChoi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LuotChoiController extends Controller
 {
@@ -21,6 +23,10 @@ class LuotChoiController extends Controller
      */
     public function index()
     {
+        $nguoi_choi = Auth::user();
+        $luot_choi = LuotChoi::where("nguoichoi_id", $nguoi_choi->id)
+                        ->orderBy('ngaygio', 'DESC')->get();
+        return $this->api_success($luot_choi, '');
     }
 
     /**
@@ -58,7 +64,10 @@ class LuotChoiController extends Controller
 
         /// 
 
+        $i = 1;
         foreach ($data as $cau_hoi_id) {
+            $score = CauHinhDiemCauHoi::where('thu_tu', $i)->first();
+            $i++;
             ChiTietLuotChoi::create([
                 "luotchoi_id" => $lc->id,
                 "cauhoi_id" => $cau_hoi_id,
@@ -66,8 +75,37 @@ class LuotChoiController extends Controller
                 "diem" => $score->diem
             ]);
         }
+
         
         return $this->api_success(null, "Hoàn thành");
+    }
+
+    /**
+     * API lấy bxh them điêm cao
+     */
+    public function ranking()
+    {
+        $luot_choi = LuotChoi::where([])->orderBy('diem', 'DESC')->offset(0)->take(20)->get();
+
+        foreach ($luot_choi as $lc) {
+            $lc->nguoi_choi = NguoiChoi::find($lc->nguoichoi_id);
+        }
+
+        return $this->api_success($luot_choi, '');
+    }
+
+    /**
+     * API lấy bxh them điêm cao
+     */
+    public function ranking_score_all()
+    {
+        $luot_choi = DB::select("select nguoichoi_id, sum(diem) tongdiem from `luot_chois` group by nguoichoi_id order by `diem` desc limit 20 offset 0");
+
+        foreach ($luot_choi as $lc) {
+            $lc->nguoi_choi = NguoiChoi::find($lc->nguoichoi_id);
+        }
+
+        return $this->api_success($luot_choi, '');
     }
 
     /**

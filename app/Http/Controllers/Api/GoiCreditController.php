@@ -5,10 +5,25 @@ use App\Components\APIResponse;
 use App\GoiCredit;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GoiCreditController extends Controller
 {
     use APIResponse;
+
+
+    public function cap_nhat_them(Request $request){
+        $c = (int)$request->credit;
+        if(!is_integer($c)){
+            return;
+        }
+
+        $nguoi_choi = Auth::user();
+        $nguoi_choi->credit += $request->credit;
+        $nguoi_choi->save();
+        return $this->api_success(null, "Cập nhật thêm credit thành công.");
+    }
+
 
     /**
      * Display a listing of the resource.
