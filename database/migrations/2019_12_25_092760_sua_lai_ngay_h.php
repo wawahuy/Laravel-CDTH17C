@@ -26,9 +26,6 @@ class SuaLaiNgayH extends Migration
      */
     public function down()
     {
-        //
-        Schema::table('luot_chois', function (Blueprint $table) {
-            $table->timestamp('ngaygio');
-        });
+
     }
 }

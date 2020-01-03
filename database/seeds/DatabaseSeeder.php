@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             NguoiChoiSeeder::class,
             LuotChoiSeeder::class,
             ChiTietLuotChoiSeeder::class,
-            ThemCauHinh::class
+            ThemCauHinh::class,
+            ThemLinhVucVaCauHoi::class
         ]);
     }
 }

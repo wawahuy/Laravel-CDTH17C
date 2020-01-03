@@ -35,7 +35,7 @@ class NguoiChoi extends Authenticatable implements JWTSubject
         if(Storage::exists($this->avatar)){
             return Storage::url($this->avatar);
         }
-        return null;
+        return "";
     }
 
     public function getAuthPassword(){

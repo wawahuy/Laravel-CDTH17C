@@ -15,7 +15,7 @@ class ThemCotTokenNguoiChoi extends Migration
     {
         //
         Schema::table('nguoi_chois', function (Blueprint $table) {
-            $table->string('remember_token')->default(null);
+            $table->string('remember_token')->default(null)->nullable();
         });
     }
 
