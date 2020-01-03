@@ -18,6 +18,7 @@ class CreateCauHinhTroGiupsTable extends Migration
             $table->integer('loai_tro_giup');
             $table->integer('thu_tu');
             $table->integer('credit');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

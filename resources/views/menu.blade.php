@@ -31,8 +31,22 @@
         ],
         "Quản lý lượt chơi" => [
             "Danh sách" => 'luot-choi.'
-        ]
-
+        ],
+        "Quản lý cấu hình app" => [
+            "Danh sách" => 'cau-hinh-app.',
+            "Thêm cấu hình app" => 'cau-hinh-app.them-moi',
+            "Thùng rác" => 'cau-hinh-app.thung-rac'
+        ],        
+        "Quản lý cấu hình điểm câu hỏi" => [
+            "Danh sách" => 'cau-hinh-diem-cau-hoi.',
+            "Thêm cấu hình điểm câu hỏi" => 'cau-hinh-diem-cau-hoi.them-moi',
+            "Thùng rác" => 'cau-hinh-diem-cau-hoi.thung-rac'
+        ],  
+        "Quản lý cấu hình trợ giúp" => [
+            "Danh sách" => 'cau-hinh-tro-giup.',
+            "Thêm cấu hình trợ giúp" => 'cau-hinh-tro-giup.them-moi',
+            "Thùng rác" => 'cau-hinh-tro-giup.thung-rac'
+        ],
     ];
 @endphp
 

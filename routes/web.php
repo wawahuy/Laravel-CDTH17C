@@ -211,5 +211,80 @@ Route::namespace ('Web')->group(function ()
             Route::get('/', 'ChiTietLuotChoiController@danh_sach');
         });
     });
+
+    /** Quản lý cấu hình app
+     *
+     */
+    Route::prefix('cau-hinh-app')->group(function ()
+    {
+        Route::name('cau-hinh-app.')->group(function ()
+        {
+            Route::get('/', 'CauHinhAppController@danh_sach');
+            Route::get('/them', 'CauHinhAppController@them_moi')
+                ->name('them-moi');
+            Route::post('/them', 'CauHinhAppController@xu_ly_them_moi')
+                ->name('xu-ly-them-moi');
+            Route::get('/xoa/{id}', 'CauHinhAppController@xoa')
+                ->name('xoa');
+            Route::get('/sua/{id}', 'CauHinhAppController@sua')
+                ->name('sua');
+            Route::post('/sua/{id}', 'CauHinhAppController@xu_ly_sua')
+                ->name('xu-ly-sua');
+            Route::get('/thung-rac', 'CauHinhAppController@thung_rac')
+                ->name('thung-rac');
+            Route::get('/thung-rac/{id}', 'CauHinhAppController@xu_ly_thung_rac')
+                ->name('xu-ly-thung-rac');
+        });
+    });
+
+    /** Quản lý cấu hình điểm câu hỏi
+     *
+     */
+    Route::prefix('cau-hinh-diem-cau-hoi')->group(function ()
+    {
+        Route::name('cau-hinh-diem-cau-hoi.')->group(function ()
+        {
+            Route::get('/', 'CauHinhDiemCauHoiController@danh_sach');
+            Route::get('/them', 'CauHinhDiemCauHoiController@them_moi')
+                ->name('them-moi');
+            Route::post('/them', 'CauHinhDiemCauHoiController@xu_ly_them_moi')
+                ->name('xu-ly-them-moi');
+            Route::get('/xoa/{id}', 'CauHinhDiemCauHoiController@xoa')
+                ->name('xoa');
+            Route::get('/sua/{id}', 'CauHinhDiemCauHoiController@sua')
+                ->name('sua');
+            Route::post('/sua/{id}', 'CauHinhDiemCauHoiController@xu_ly_sua')
+                ->name('xu-ly-sua');
+            Route::get('/thung-rac', 'CauHinhDiemCauHoiController@thung_rac')
+                ->name('thung-rac');
+            Route::get('/thung-rac/{id}', 'CauHinhDiemCauHoiController@xu_ly_thung_rac')
+                ->name('xu-ly-thung-rac');
+        });
+    });
+
+    /** Quản lý cấu hình trợ giúp
+     *
+     */
+    Route::prefix('cau-hinh-tro-giup')->group(function ()
+    {
+        Route::name('cau-hinh-tro-giup.')->group(function ()
+        {
+            Route::get('/', 'CauHinhTroGiupController@danh_sach');
+            Route::get('/them', 'CauHinhTroGiupController@them_moi')
+                ->name('them-moi');
+            Route::post('/them', 'CauHinhTroGiupController@xu_ly_them_moi')
+                ->name('xu-ly-them-moi');
+            Route::get('/xoa/{id}', 'CauHinhTroGiupController@xoa')
+                ->name('xoa');
+            Route::get('/sua/{id}', 'CauHinhTroGiupController@sua')
+                ->name('sua');
+            Route::post('/sua/{id}', 'CauHinhTroGiupController@xu_ly_sua')
+                ->name('xu-ly-sua');
+            Route::get('/thung-rac', 'CauHinhTroGiupController@thung_rac')
+                ->name('thung-rac');
+            Route::get('/thung-rac/{id}', 'CauHinhTroGiupController@xu_ly_thung_rac')
+                ->name('xu-ly-thung-rac');
+        });
+    });
 });
 
