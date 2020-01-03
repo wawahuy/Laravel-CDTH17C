@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Api;
 use App\CauHoi;
 use App\Components\APIResponse;
 use App\Http\Controllers\Controller;
+use App\LuotChoi;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\CauHinhDiemCauHoi;
 
 class CauHoiController extends Controller
 {
@@ -90,5 +94,27 @@ class CauHoiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function lay_qua_linh_vuc($id, Request $request){
+        $nguoi_choi = Auth::user();
+        $cauhoi = DB::select("
+            select * from cau_hois ch where  
+                ch.linh_vuc_id = ? and
+                ch.id not in (
+                    select ctlc.cauhoi_id
+                    from chi_tiet_luot_chois ctlc, luot_chois lc
+                    where lc.nguoichoi_id = ?
+                ) 
+                limit 0, 15
+
+        ", [$id, Auth::user()->id]);
+
+        if(count($cauhoi) < CauHinhDiemCauHoi::count()){
+            return $this->api_error("Số lượng câu hỏi đang cạn kiệt, bạn vui long đợi.");
+        }
+
+        return $this->api_success($cauhoi);
     }
 }

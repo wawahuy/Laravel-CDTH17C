@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\ChiTietLuotChoi;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class ChiTietLuotChoiController extends Controller
 {
@@ -13,9 +14,9 @@ class ChiTietLuotChoiController extends Controller
      *
      * @return void
      */
-    public function danh_sach()
+    public function danh_sach(Request $request)
     {
-        $dsChiTietLuotChoi = ChiTietLuotChoi::all();
+        $dsChiTietLuotChoi = ChiTietLuotChoi::where("luotchoi_id", $request->id)->get();
         return view('chi-tiet-luot-choi.quan-li', compact('dsChiTietLuotChoi'));
     }
     /**

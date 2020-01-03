@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Support\Facades\Storage;
+
 class NguoiChoi extends Authenticatable implements JWTSubject
 {
     use SoftDeletes;
@@ -23,8 +25,17 @@ class NguoiChoi extends Authenticatable implements JWTSubject
 
     protected $hidden = ['matkhau', 'remember_token'];
 
+    protected $appends = ['AvatarUrl'];
+
     public function getPassswordAttribute(){
         return $this->matkhau;
+    }
+
+    public function getAvatarUrlAttribute(){
+        if(Storage::exists($this->avatar)){
+            return Storage::url($this->avatar);
+        }
+        return null;
     }
 
     public function getAuthPassword(){
