@@ -52,9 +52,9 @@ class NguoiChoiController extends Controller
             'credit' => 0,
             'remember_token' => ''
         ]);
-
+            
         $token = Auth::guard('api')->attempt(compact('tendangnhap', 'password'));
-
+        
         if($token){
             return $this->api_success(
                 [
