@@ -11,6 +11,13 @@ class ThemLinhVucVaCauHoi extends Seeder
      *
      * @return void
      */
+    public function da($da){
+        if($da=='1') return 'A';
+        if($da=='2') return 'B';
+        if($da=='3') return 'C';
+        return 'D';
+    }
+
     public function run()
     {
         //linh vuc
@@ -151,16 +158,24 @@ class ThemLinhVucVaCauHoi extends Seeder
             'dap_an'=>'3','linh_vuc_id'=>'3','loai'=>'AmNhac','phuong_an_A'=>'Trần Lân Nhã',
             'phuong_an_B'=>'Trần Nguyễn Uyên Linh','phuong_an_C'=>'Văn Mai Hương','phuong_an_D'=>'Lều Phương Anh'
         ];
+        $listCauHoi[] = ['noi_dung'=>'Test ngôi Thần tượng âm nhạc Việt Nam 2010?',
+        'dap_an'=>'3','linh_vuc_id'=>'1','loai'=>'AmNhac','phuong_an_A'=>'Trần Lân Nhã',
+        'phuong_an_B'=>'Trần Nguyễn Uyên Linh','phuong_an_C'=>'Văn Mai Hương','phuong_an_D'=>'Lều Phương Anh'
+        ];
+        $listCauHoi[] = ['noi_dung'=>'Test hạc Việt Nam 2010?',
+        'dap_an'=>'3','linh_vuc_id'=>'1','loai'=>'AmNhac','phuong_an_A'=>'Trần Lân Nhã',
+        'phuong_an_B'=>'Trần Nguyễn Uyên Linh','phuong_an_C'=>'Văn Mai Hương','phuong_an_D'=>'Lều Phương Anh'
+        ];
 
         foreach ($listCauHoi as $ch) {
             CauHoi::create([
                     "noidung" => $ch["noi_dung"],
                     "linh_vuc_id" => $ch["linh_vuc_id"],
-                    "dapan" => $ch["dap_an"],
-                    "phuongan_A" => $ch["phuong_an_A"],
-                    "phuongan_B" => $ch["phuong_an_B"],
-                    "phuongan_C" => $ch["phuong_an_C"],
-                    "phuongan_D" => $ch["phuong_an_D"],
+                    "dapan" => $this->da($ch["dap_an"]),
+                    "phuongan_A" => ($ch["phuong_an_A"]),
+                    "phuongan_B" => ($ch["phuong_an_B"]),
+                    "phuongan_C" => ($ch["phuong_an_C"]),
+                    "phuongan_D" => ($ch["phuong_an_D"]),
             ]);
         }
     }
